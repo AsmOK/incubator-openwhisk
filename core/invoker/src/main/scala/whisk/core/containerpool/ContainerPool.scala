@@ -91,7 +91,87 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
       akka.event.Logging.InfoLevel)
   }
 
+  def logContainerStart(p: Prepare, containerState: String): Unit = {
+    val namespaceName = p.msg.user.namespace.name
+    val actionName = p.action.name.name
+    // val activationId = p.msg.activationId.toString
+
+    p.msg.transid.mark(
+      this,
+      LoggingMarkers.INVOKER_CONTAINER_START(actionName, namespaceName, containerState),
+      s"containerStart containerState: $containerState action: $actionName namespace: $namespaceName",
+      akka.event.Logging.InfoLevel)
+  }
+
   def receive: Receive = {
+    //     /* ************* Aya&Asmaa ************** */
+    // to prepare a container for specific action
+    case p:Prepare =>
+    // ContainerPool
+    //   .schedule(p.action, p.msg.user.namespace, freePool)
+    //     .map(container => {
+    //       (container, "warm")
+    //     })
+    //     .orElse { 
+    
+        if( ContainerPool
+          .schedule(p.action, p.msg.user.namespace, freePool)
+          .map(container => {
+            (container, "warm")
+            }) == None) { 
+          val createdContainer = if (busyPool.size < maxActiveContainers) {
+        // Schedule a job to a warm container
+            if (busyPool.size + freePool.size < maxPoolSize) {
+              takePrewarmContainer(p.action)
+                .map(container => {
+                  (container, "prewarmed")
+                })
+                .orElse {
+                  Some(createContainer(), "cold")
+                }
+            } else {
+            // Remove a container and create a new one for the given job
+            ContainerPool.remove(freePool).map { toDelete =>
+              removeContainer(toDelete)
+              takePrewarmContainer(p.action)
+                .map(container => {
+                  (container, "recreated")
+                })
+                .getOrElse {
+                  (createContainer(), "recreated")
+                }
+            }
+          }
+        } else None
+
+          createdContainer match {
+          case Some(((actor, data), containerState)) =>
+            // busyPool = busyPool + (actor -> data)
+            // freePool = freePool - actor
+            // actor ! r // forwards the run request to the container
+            actor ! p
+            /* ??? */
+            logContainerStart(p, containerState)
+          case None =>
+            // this can also happen if createContainer fails to start a new container, or
+            // if a job is rescheduled but the container it was allocated to has not yet destroyed itself
+            // (and a new container would over commit the pool)
+            val isErrorLogged = p.retryLogDeadline.map(_.isOverdue).getOrElse(true)
+            val retryLogDeadline = if (isErrorLogged) {
+              logging.error(
+                this,
+                s"Rescheduling Run message, too many message in the pool, freePoolSize: ${freePool.size}, " +
+                  s"busyPoolSize: ${busyPool.size}, maxActiveContainers $maxActiveContainers, " +
+                  s"userNamespace: ${p.msg.user.namespace}, action: ${p.action}")(p.msg.transid)
+              Some(logMessageInterval.fromNow)
+            } else {
+              p.retryLogDeadline
+            }
+            self ! Prepare(p.action, p.msg, retryLogDeadline)
+        }
+
+      }
+
     // A job to run on a container
     //
     // Run messages are received either via the feed or from child containers which cannot process
@@ -185,6 +265,8 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
     case RescheduleJob =>
       freePool = freePool - sender()
       busyPool = busyPool - sender()
+
+
   }
 
   /** Creates a new container and updates state accordingly. */

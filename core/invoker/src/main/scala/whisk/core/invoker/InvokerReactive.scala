@@ -34,6 +34,7 @@ import whisk.common.LoggingMarkers
 import whisk.common.TransactionId
 import whisk.core.WhiskConfig
 import whisk.core.connector.ActivationMessage
+import whisk.core.connector.PreparationMessage
 import whisk.core.connector.CompletionMessage
 import whisk.core.connector.MessageFeed
 import whisk.core.connector.MessageProducer
@@ -43,6 +44,7 @@ import whisk.core.containerpool.ContainerPool
 import whisk.core.containerpool.ContainerProxy
 import whisk.core.containerpool.PrewarmingConfig
 import whisk.core.containerpool.Run
+import whisk.core.containerpool.Prepare
 import whisk.core.containerpool.logging.LogStoreProvider
 import whisk.core.database._
 import whisk.core.entity._
@@ -184,8 +186,11 @@ class InvokerReactive(config: WhiskConfig, instance: InstanceId, producer: Messa
           .get(entityStore, actionid.id, actionid.rev, fromCache = actionid.rev != DocRevision.empty)
           .flatMap { action =>
             action.toExecutableWhiskAction match {
-              case Some(executable) =>
+              case Some(executable) =>                
                 pool ! Run(executable, msg)
+
+                
+
                 Future.successful(())
               case None =>
                 logging.error(this, s"non-executable action reached the invoker ${action.fullyQualifiedName(false)}")
@@ -230,13 +235,122 @@ class InvokerReactive(config: WhiskConfig, instance: InstanceId, producer: Messa
               Future.successful(())
           }
       }
+      // .recoverWith {
+      //   /* ******************Aya&Asmaa*******************/
+      // Future(PreparationMessage.parse(new String(bytes, StandardCharsets.UTF_8)))
+      //   .flatMap(Future.fromTry(_))
+      //   .filter(_.action.version.isDefined)
+      //   .flatMap { msg =>
+      //     implicit val transid = msg.transid
+
+      //     val start = transid.started(this, LoggingMarkers.INVOKER_ACTIVATION, logLevel = InfoLevel)
+      //     val namespace = msg.action.path
+      //     val name = msg.action.name
+      //     val actionid = FullyQualifiedEntityName(namespace, name).toDocId.asDocInfo(msg.revision)
+      //     val subject = msg.user.subject
+
+      //   logging.debug(this, s"${actionid.id} $subject")
+
+      //   // caching is enabled since actions have revision id and an updated
+      //   // action will not hit in the cache due to change in the revision id;
+      //   // if the doc revision is missing, then bypass cache
+      //     if (actionid.rev == DocRevision.empty) {
+      //       logging.warn(this, s"revision was not provided for ${actionid.id}")
+      //     }
+
+      //     WhiskAction
+      //       .get(entityStore, actionid.id, actionid.rev, fromCache = actionid.rev != DocRevision.empty)
+      //       .flatMap { action =>
+      //         action.toExecutableWhiskAction match {
+      //         case Some(executable) =>
+      //           /****************** Aya&Asmaa *********************/
+      //           pool ! Prepare(executable, msg)
+                
+
+      //           Future.successful(())
+      //           case None =>
+      //             logging.error(this, s"non-executable action reached the invoker ${action.fullyQualifiedName(false)}")
+      //             Future.failed(new IllegalStateException("non-executable action reached the invoker"))
+      //         }
+      //       }.recoverWith {
+      //         case t =>
+      //           // If the action cannot be found, the user has concurrently deleted it,
+      //           // making this an application error. All other errors are considered system
+      //           // errors and should cause the invoker to be considered unhealthy.
+      //           val response = t match {
+      //             case _: NoDocumentException =>
+      //               ActivationResponse.applicationError(Messages.actionRemovedWhileInvoking)
+      //             case _: DocumentTypeMismatchException | _: DocumentUnreadable =>
+      //               ActivationResponse.whiskError(Messages.actionMismatchWhileInvoking)
+      //             case _ =>
+      //               ActivationResponse.whiskError(Messages.actionFetchErrorWhileInvoking)
+      //           }
+      //           Future.successful(())
+      //       }
+      //   }
+      // }
       .recoverWith {
-        case t =>
-          // Iff everything above failed, we have a terminal error at hand. Either the message failed
-          // to deserialize, or something threw an error where it is not expected to throw.
-          activationFeed ! MessageFeed.Processed
-          logging.error(this, s"terminal failure while processing message: $t")
-          Future.successful(())
+          case t =>
+            // Iff everything above failed, we have a terminal error at hand. Either the message failed
+            // to deserialize, or something threw an error where it is not expected to throw.
+                  //   /* ******************Aya&Asmaa*******************/
+            Future(PreparationMessage.parse(new String(bytes, StandardCharsets.UTF_8)))
+              .flatMap(Future.fromTry(_))
+              .filter(_.action.version.isDefined)
+              .flatMap { msg =>
+                implicit val transid = msg.transid
+
+                val start = transid.started(this, LoggingMarkers.INVOKER_ACTIVATION, logLevel = InfoLevel)
+                val namespace = msg.action.path
+                val name = msg.action.name
+                val actionid = FullyQualifiedEntityName(namespace, name).toDocId.asDocInfo(msg.revision)
+                val subject = msg.user.subject
+
+              logging.debug(this, s"${actionid.id} $subject")
+
+              // caching is enabled since actions have revision id and an updated
+              // action will not hit in the cache due to change in the revision id;
+              // if the doc revision is missing, then bypass cache
+                if (actionid.rev == DocRevision.empty) {
+                  logging.warn(this, s"revision was not provided for ${actionid.id}")
+                }
+
+                WhiskAction
+                  .get(entityStore, actionid.id, actionid.rev, fromCache = actionid.rev != DocRevision.empty)
+                  .flatMap { action =>
+                    action.toExecutableWhiskAction match {
+                    case Some(executable) =>
+                      /****************** Aya&Asmaa *********************/
+                      pool ! Prepare(executable, msg)
+                      
+
+                      Future.successful(())
+                      case None =>
+                        logging.error(this, s"non-executable action reached the invoker ${action.fullyQualifiedName(false)}")
+                        Future.failed(new IllegalStateException("non-executable action reached the invoker"))
+                    }
+                  }.recoverWith {
+                    case t =>
+                      // If the action cannot be found, the user has concurrently deleted it,
+                      // making this an application error. All other errors are considered system
+                      // errors and should cause the invoker to be considered unhealthy.
+                      val response = t match {
+                        case _: NoDocumentException =>
+                          ActivationResponse.applicationError(Messages.actionRemovedWhileInvoking)
+                        case _: DocumentTypeMismatchException | _: DocumentUnreadable =>
+                          ActivationResponse.whiskError(Messages.actionMismatchWhileInvoking)
+                        case _ =>
+                          ActivationResponse.whiskError(Messages.actionFetchErrorWhileInvoking)
+                      }
+                      Future.successful(())
+                  }
+              }
+          .recoverWith{
+            case t =>
+              activationFeed ! MessageFeed.Processed
+              logging.error(this, s"terminal failure while processing message: $t")
+              Future.successful(()) 
+          }
       }
   }
 

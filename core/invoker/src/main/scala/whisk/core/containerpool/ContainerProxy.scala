@@ -32,6 +32,7 @@ import spray.json._
 import spray.json.DefaultJsonProtocol._
 import whisk.common.{AkkaLogging, Counter, LoggingMarkers, TransactionId}
 import whisk.core.connector.ActivationMessage
+import whisk.core.connector.PreparationMessage
 import whisk.core.containerpool.logging.LogCollectingException
 import whisk.core.entity._
 import whisk.core.entity.size._
@@ -63,6 +64,10 @@ case class WarmedData(container: Container,
 // Events received by the actor
 case class Start(exec: CodeExec[_], memoryLimit: ByteSize)
 case class Run(action: ExecutableWhiskAction, msg: ActivationMessage, retryLogDeadline: Option[Deadline] = None)
+/** Aya&Asmaa **/
+// the action is not executable, parameters are not yet ready
+// this is only to prepare a container for that action
+case class Prepare(action: ExecutableWhiskAction, msg: PreparationMessage, retryLogDeadline: Option[Deadline] = None)
 case object Remove
 
 // Events sent by the actor
@@ -120,6 +125,21 @@ class ContainerProxy(
         .pipeTo(self)
 
       goto(Starting)
+
+      // pre warm a container (creates a stem cell container)
+    case Event(job: Prepare, _) =>
+      factory(
+        TransactionId.invokerWarmup,
+        ContainerProxy.containerName(instance, "prewarm", job.action.exec.kind),
+        job.action.exec.image,
+        job.action.exec.pull,
+        job.action.limits.memory.megabytes.MB)
+        .map(container => PreWarmedData(container, job.action.exec.kind, job.action.limits.memory.megabytes.MB))
+        .pipeTo(self)
+
+      goto(Starting)
+
+      
 
     // cold start (no container to reuse or available stem cell container)
     case Event(job: Run, _) =>
@@ -184,6 +204,18 @@ class ContainerProxy(
   }
 
   when(Started) {
+    //----------Aya & Asmaa
+    //when recevie Prepare initialize without running
+    case Event(job: Prepare, data: PreWarmedData) =>
+      implicit val transid = job.msg.transid
+      prepare(data.container, job)
+        .map(_ => WarmedData(data.container, job.msg.user.namespace, job.action, Instant.now))
+        .pipeTo(self)
+
+      goto(Ready)
+
+
+  //---------------------------------------------      
     case Event(job: Run, data: PreWarmedData) =>
       implicit val transid = job.msg.transid
       initializeAndRun(data.container, job)
@@ -316,6 +348,17 @@ class ContainerProxy(
       .pipeTo(self)
 
     goto(Removing)
+  }
+  /* function to call /init only, no /run */
+  def prepare(container: Container, job: Prepare)(implicit tid: TransactionId): Future[Option[Interval]] = {
+    val actionTimeout = job.action.limits.timeout.duration
+
+    // Only initialize iff we haven't yet warmed the container
+    val initialize = stateData match {
+      case data: WarmedData => Future.successful(None)
+      case _                => container.initialize(job.action.containerInitializer, actionTimeout).map(Some(_))
+    }
+    initialize
   }
 
   /**

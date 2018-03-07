@@ -68,6 +68,31 @@ protected[actions] trait SequenceActions {
     waitForResponse: Option[FiniteDuration],
     cause: Option[ActivationId])(implicit transid: TransactionId): Future[Either[ActivationId, WhiskActivation]]
 
+/* ************AYA&Asmaa ************** */
+  /**
+   * prepare an action which may be a sequence or a primitive (single) action.
+   */
+  protected[controller] def warmAction(
+    user: Identity,
+    action: WhiskActionMetaData,
+	waitForResponse: Option[FiniteDuration])(implicit transid: TransactionId): Future[Unit]
+
+/**************Aya & Asmaa*****************************/
+
+// take a vector of actions from database, iterate on it and prepare atomic actions
+
+    private def IterateAndPrepare( user: Identity,
+     components: Vector[Future[WhiskActionMetaData]]) (implicit transid: TransactionId) : Future[Unit] = {
+    	components
+    	.map{ component =>  component
+    		.map {
+    			action => prepareNextAction(user, action)
+    	}
+    		// .map{ action: WhiskActionMetaData => prepareNextAction(user, action)}
+    	} 
+    	Future.successful(())
+    }
+
   /**
    * Executes a sequence by invoking in a blocking fashion each of its components.
    *
@@ -265,6 +290,16 @@ protected[actions] trait SequenceActions {
       WhiskActionMetaData.resolveActionAndMergeParameters(entityStore, c)
     }
 
+    /******************** Aya & Asmaa **********************/
+    // send sequence of actions to prepare
+    IterateAndPrepare(user, resolvedFutureActions)
+    // resolvedFutureActions
+    //   // .flatMap {action => action
+    // 	.map{ component => prepareNextAction(user, component)
+    // 		// .map{ action: WhiskActionMetaData => prepareNextAction(user, action)}
+    // 	}
+    //   // } 
+
     // this holds the initial value of the accounting structure, including the input boxed as an ActivationResponse
     val initialAccounting = Future.successful {
       SequenceAccounting(atomicActionCnt, ActivationResponse.payloadPlaceholder(inputPayload))
@@ -296,6 +331,37 @@ protected[actions] trait SequenceActions {
         case FailedSequenceActivation(accounting) => Future.successful(accounting)
       }
   }
+
+
+
+
+/**********Aya & Asmaa ***********/
+
+//prepare an atomic action otherwise do nothing.
+/*
+   * @param user the user executing the sequence
+   * @param futureAction the future which fetches the action to be invoked from the db
+   * @return a future
+   */
+  private def prepareNextAction(
+    user: Identity,
+    futureAction: WhiskActionMetaData)(implicit transid: TransactionId): Future[Unit] = {
+    // futureAction.flatMap { action =>
+      // invoke the action by calling the right method depending on whether it's an atomic action or a sequence
+      futureAction.toExecutableWhiskAction match {
+        case None =>
+          logging.info(this, s"sequence Preparing an enclosed sequence $futureAction")
+          Future.successful(())
+        case Some(executable) =>
+          // this is a preparing for an atomic action
+          val timeout = futureAction.limits.timeout.duration + 1.minute
+          logging.info(this, s"sequence preparing an enclosed atomic action $futureAction")
+          warmAction(user, futureAction, waitForResponse = Some(timeout))
+      }
+    // }
+  }
+
+
 
   /**
    * Invokes one component from a sequence action. Unless an unexpected whisk failure happens, the future returned is always successful.

@@ -81,6 +81,17 @@ class ContainerPoolBalancer(config: WhiskConfig, controllerInstance: InstanceId)
     }
   }
 
+  override def publish(action: ExecutableWhiskActionMetaData, msg: PreparationMessage)(
+    implicit transid: TransactionId): Future[Unit] = {
+    chooseInvoker(msg.user, action).flatMap { invokerName =>
+      // val entry = setupActivation(action, msg.activationId, msg.user.uuid, invokerName, transid)
+      sendActivationToInvoker(messageProducer, msg, invokerName).map { _ =>
+        // entry.promise.future
+        Future.successful(())
+      }
+    }
+  }
+
   /** An indexed sequence of all invokers in the current system. */
   override def invokerHealth(): Future[IndexedSeq[InvokerHealth]] = {
     invokerPool
@@ -179,6 +190,31 @@ class ContainerPoolBalancer(config: WhiskConfig, controllerInstance: InstanceId)
       this,
       LoggingMarkers.CONTROLLER_KAFKA,
       s"posting topic '$topic' with activation id '${msg.activationId}'",
+      logLevel = InfoLevel)
+
+    producer.send(topic, msg).andThen {
+      case Success(status) =>
+        transid.finished(
+          this,
+          start,
+          s"posted to ${status.topic()}[${status.partition()}][${status.offset()}]",
+          logLevel = InfoLevel)
+      case Failure(e) => transid.failed(this, start, s"error on posting to topic $topic")
+    }
+  }
+
+  /* *******************Aya&Asmaa**********************/
+  private def sendActivationToInvoker(producer: MessageProducer,
+                                      msg: PreparationMessage,
+                                      invoker: InstanceId): Future[RecordMetadata] = {
+    implicit val transid = msg.transid
+
+    MetricEmitter.emitCounterMetric(LoggingMarkers.LOADBALANCER_ACTIVATION_START(msg.user.uuid.asString))
+    val topic = s"invoker${invoker.toInt}"
+    val start = transid.started(
+      this,
+      LoggingMarkers.CONTROLLER_KAFKA,
+      s"posting topic '$topic' preparation",
       logLevel = InfoLevel)
 
     producer.send(topic, msg).andThen {
