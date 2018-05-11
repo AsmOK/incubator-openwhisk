@@ -24,6 +24,7 @@ import akka.event.Logging.InfoLevel
 import spray.json._
 import whisk.common.{Logging, LoggingMarkers, TransactionId}
 import whisk.core.connector.ActivationMessage
+import whisk.core.connector.PreparationMessage
 import whisk.core.controller.WhiskServices
 import whisk.core.database.NoDocumentException
 import whisk.core.entitlement.{Resource, _}
@@ -73,6 +74,77 @@ protected[actions] trait PrimitiveActions {
     cause: Option[ActivationId],
     topmost: Boolean,
     atomicActionsCount: Int)(implicit transid: TransactionId): Future[(Either[ActivationId, WhiskActivation], Int)]
+
+/* *******************Aya&Asmaa********************/
+  /**
+   * Posts request to warm the action to the loadbalancer.
+   *
+   * NOTE:
+   * For activations of actions, cause is populated only for actions that were invoked as a result of a sequence activation.
+   * For actions that are enclosed in a sequence and are activated as a result of the sequence activation, the cause
+   * contains the activation id of the immediately enclosing sequence.
+   * e.g.,: s -> a, x, c    and   x -> c  (x and s are sequences, a, b, c atomic actions)
+   * cause for a, x, c is the activation id of s
+   * cause for c is the activation id of x
+   * cause for s is not defined
+   *
+   * @param user the identity invoking the action
+   * @param action the action to invoke
+   * @param payload the dynamic arguments for the activation
+   * @param waitForResponse if not empty, wait upto specified duration for a response (this is used for blocking activations)
+   * @param cause the activation id that is responsible for this invoke/activation
+   * @param transid a transaction id for logging
+   * @return a promise (ActivationId) that is actually not going to be used
+   */
+  protected[actions] def warmSingleAction(
+    user: Identity,
+    action: ExecutableWhiskActionMetaData
+    /*payload: Option[JsObject],*/
+    /*waitForResponse: Option[FiniteDuration]*/
+    /*cause: Option[ActivationId]*/)(implicit transid: TransactionId): Future[Unit] = {
+    logging.info(this, s"warming single action $action.name")
+    // merge package parameters with action (action parameters supersede), then merge in payload
+    // val args = action.parameters merge payload
+    val message = PreparationMessage(
+      transid,
+      FullyQualifiedEntityName(action.namespace, action.name, Some(action.version)),
+      action.rev,
+      user)
+
+    val startActivation = transid.started(
+      this,
+      // waitForResponse
+      //   .map(_ => LoggingMarkers.CONTROLLER_ACTIVATION_BLOCKING)
+      //   .getOrElse(LoggingMarkers.CONTROLLER_ACTIVATION),
+      LoggingMarkers.CONTROLLER_ACTIVATION,
+      logLevel = InfoLevel)
+    val startLoadbalancer =
+      transid.started(this, LoggingMarkers.CONTROLLER_LOADBALANCER, s"action preparation.")
+    val postedFuture = loadBalancer.publish(action, message)
+
+    postedFuture.flatMap { activeAckResponse =>
+      // successfully posted activation request to the message bus
+      logging.info(this, s"warming message has been published to loadbalancer $action.name")
+      transid.finished(this, startLoadbalancer)
+
+      // is caller waiting for the result of the activation?
+      // waitForResponse
+      //   .map { timeout =>
+      //     // yes, then wait for the activation response from the message bus
+      //     // (known as the active response or active ack)
+      //     waitForActivationResponse(user, message.activationId, timeout, activeAckResponse)
+      //       .andThen { case _ => transid.finished(this, startActivation) }
+      //   }
+      //   .getOrElse {
+      //     // no, return the activation id
+      //     transid.finished(this, startActivation)
+      //     Future.successful(Left(message.activationId))
+      //   }
+
+      // transid.finished(this, startActivation)
+      Future.successful(())
+    }
+  }
 
   /**
    * A method that knows how to invoke a single primitive action or a composition.

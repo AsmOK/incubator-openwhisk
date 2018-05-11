@@ -59,6 +59,10 @@ trait LoadBalancer {
   def publish(action: ExecutableWhiskActionMetaData, msg: ActivationMessage)(
     implicit transid: TransactionId): Future[Future[Either[ActivationId, WhiskActivation]]]
 
+  /**************AYA&ASMAA***************/
+  def publish(action: ExecutableWhiskActionMetaData, msg: PreparationMessage)(
+    implicit transid: TransactionId): Future[Unit]
+
   /**
    * Returns a message indicating the health of the containers and/or container pool in general.
    *

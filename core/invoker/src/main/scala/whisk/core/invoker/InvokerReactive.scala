@@ -157,7 +157,7 @@ class InvokerReactive(
   private val pool = actorSystem.actorOf(
     ContainerPool.props(childFactory, poolConfig, activationFeed, Some(PrewarmingConfig(2, prewarmExec, 256.MB))))
 
-  /** Is called when an ActivationMessage is read from Kafka */
+   /** Is called when an ActivationMessage is read from Kafka */
   def processActivationMessage(bytes: Array[Byte]): Future[Unit] = {
     Future(ActivationMessage.parse(new String(bytes, StandardCharsets.UTF_8)))
       .flatMap(Future.fromTry)
@@ -226,6 +226,61 @@ class InvokerReactive(
       }
       .recoverWith {
         case t =>
+        Future(PreparationMessage.parse(new String(bytes, StandardCharsets.UTF_8)))
+      .flatMap(Future.fromTry)
+      .flatMap { msg =>
+
+        implicit val transid: TransactionId = msg.transid
+
+        if (!namespaceBlacklist.isBlacklisted(msg.user)) {
+          val start = transid.started(this, LoggingMarkers.INVOKER_ACTIVATION, logLevel = InfoLevel)
+          val namespace = msg.action.path
+          val name = msg.action.name
+          val actionid = FullyQualifiedEntityName(namespace, name).toDocId.asDocInfo(msg.revision)
+          val subject = msg.user.subject
+
+          logging.debug(this, s"preparing ${actionid.id} $subject")
+
+          // caching is enabled since actions have revision id and an updated
+          // action will not hit in the cache due to change in the revision id;
+          // if the doc revision is missing, then bypass cache
+          if (actionid.rev == DocRevision.empty) logging.warn(this, s"revision was not provided for ${actionid.id}")
+
+          WhiskAction
+            .get(entityStore, actionid.id, actionid.rev, fromCache = actionid.rev != DocRevision.empty)
+            .flatMap { action =>
+              action.toExecutableWhiskAction match {
+                case Some(executable) =>
+                  pool ! Prepare(executable, msg)
+                  // proceed
+                  activationFeed ! MessageFeed.Processed
+                  Future.successful(())
+                case None =>
+                  logging.error(this, s"non-executable action reached the invoker ${action.fullyQualifiedName(false)}")
+                  Future.failed(new IllegalStateException("non-executable action reached the invoker"))
+              }
+            }
+            .recoverWith {
+              case t =>
+                // If the action cannot be found, the user has concurrently deleted it,
+                // making this an application error. 
+                //skip. this is a preparation message
+
+                activationFeed ! MessageFeed.Processed
+                Future.successful(())
+            }
+        } else {
+          // Iff the current namespace is blacklisted, an active-ack is only produced to keep the loadbalancer protocol
+          // Due to the protective nature of the blacklist, a database entry is not written.
+          
+          activationFeed ! MessageFeed.Processed
+          logging.warn(this, s"namespace ${msg.user.namespace} was blocked in invoker.")
+          Future.successful(())
+        }
+      }
+      }
+      .recoverWith {
+        case t =>
           // Iff everything above failed, we have a terminal error at hand. Either the message failed
           // to deserialize, or something threw an error where it is not expected to throw.
           activationFeed ! MessageFeed.Processed
@@ -233,6 +288,9 @@ class InvokerReactive(
           Future.successful(())
       }
   }
+
+
+
 
   /** Generates an activation with zero runtime. Usually used for error cases */
   private def generateFallbackActivation(msg: ActivationMessage, response: ActivationResponse): WhiskActivation = {

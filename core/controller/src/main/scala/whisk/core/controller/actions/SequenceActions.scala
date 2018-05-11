@@ -60,6 +60,15 @@ protected[actions] trait SequenceActions {
   /** Database service to get activations. */
   protected val activationStore: ActivationStore
 
+  	/* ************AYA&Asmaa ************** */
+	/**
+	* prepare an action which may be a sequence or a primitive (single) action.
+	*/
+  protected[actions] def warmAction(
+    user: Identity,
+    action: WhiskActionMetaData
+	/*waitForResponse: Option[FiniteDuration]*/)(implicit transid: TransactionId): Future[Unit]
+
   /** A method that knows how to invoke a single primitive action. */
   protected[actions] def invokeAction(
     user: Identity,
@@ -67,6 +76,47 @@ protected[actions] trait SequenceActions {
     payload: Option[JsObject],
     waitForResponse: Option[FiniteDuration],
     cause: Option[ActivationId])(implicit transid: TransactionId): Future[Either[ActivationId, WhiskActivation]]
+
+
+    /**
+    * Asmaa
+    *
+    **/
+    private def prepareAll( user: Identity,
+     components: Vector[Future[WhiskActionMetaData]]) (implicit transid: TransactionId) : Future[Unit] = {
+    	components
+    	.map{ component =>  component
+    		.map {
+    			action => prepareNextAction(user, action)
+    		}
+    	} 
+    	Future.successful(())
+    }
+
+    /**********Aya & Asmaa ***********/
+
+	//prepare an atomic action otherwise do nothing.
+	/*
+		   * @param user the user executing the sequence
+		   * @param futureAction the future which fetches the action to be invoked from the db
+		   * @return a future
+		   */
+  	private def prepareNextAction(
+    	user: Identity,
+    	futureAction: WhiskActionMetaData)(implicit transid: TransactionId): Future[Unit] = {
+    	// futureAction.flatMap { action =>
+      	// invoke the action by calling the right method depending on whether it's an atomic action or a sequence
+      	futureAction.toExecutableWhiskAction match {
+        	case None =>
+          		logging.info(this, s"sequence Preparing an enclosed sequence $futureAction")
+          		Future.successful(())
+        	case Some(executable) =>
+          	// this is a preparing for an atomic action
+          	val timeout = futureAction.limits.timeout.duration + 1.minute
+          	logging.info(this, s"sequence preparing an enclosed atomic action $futureAction")
+          	warmAction(user, futureAction/*, waitForResponse = Some(timeout)*/)
+      	}
+  	}
 
   /**
    * Executes a sequence by invoking in a blocking fashion each of its components.
@@ -264,6 +314,11 @@ protected[actions] trait SequenceActions {
     val resolvedFutureActions = resolveDefaultNamespace(components, user) map { c =>
       WhiskActionMetaData.resolveActionAndMergeParameters(entityStore, c)
     }
+
+    /******************** Aya & Asmaa **********************/
+    // send sequence of actions to prepare
+    logging.info(this, "After fetching from datastore and before preparing")
+    prepareAll(user, resolvedFutureActions)
 
     // this holds the initial value of the accounting structure, including the input boxed as an ActivationResponse
     val initialAccounting = Future.successful {

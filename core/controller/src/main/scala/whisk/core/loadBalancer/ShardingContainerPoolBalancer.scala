@@ -129,6 +129,38 @@ class ShardingContainerPoolBalancer(config: WhiskConfig, controllerInstance: Ins
   override def totalActiveActivations: Future[Int] = Future.successful(totalActivations.intValue())
   override def clusterSize: Int = schedulingState.clusterSize
 
+  /*****************AYA&ASMAA******************/
+  /** 1. Publish a message to the loadbalancer */
+  override def publish(action: ExecutableWhiskActionMetaData, msg: PreparationMessage)(
+    implicit transid: TransactionId): Future[Unit] = {
+
+    val (invokersToUse, stepSizes) =
+      if (!action.exec.pull) (schedulingState.managedInvokers, schedulingState.managedStepSizes)
+      else (schedulingState.blackboxInvokers, schedulingState.blackboxStepSizes)
+    val chosen = if (invokersToUse.nonEmpty) {
+      val hash = ShardingContainerPoolBalancer.generateHash(msg.user.namespace, action.fullyQualifiedName(false))
+      val homeInvoker = hash % invokersToUse.size
+      val stepSize = stepSizes(hash % stepSizes.size)
+      ShardingContainerPoolBalancer.schedule(invokersToUse, schedulingState.invokerSlots, homeInvoker, stepSize)
+    } else {
+      None
+    }
+
+    chosen
+      .map { invoker =>
+        //val entry = setupActivation(msg, action, invoker)
+        sendActivationToInvoker(messageProducer, msg, invoker).map { _ =>
+        logging.info(this, "PreparationMessage published!")
+        }
+      }
+        Future.successful(())
+      // .orelse
+      // getOrElse(
+      //   //logging.error(this, "No invokers available")
+      //   Future.successful(())
+      // )
+  }
+
   /** 1. Publish a message to the loadbalancer */
   override def publish(action: ExecutableWhiskActionMetaData, msg: ActivationMessage)(
     implicit transid: TransactionId): Future[Future[Either[ActivationId, WhiskActivation]]] = {
@@ -188,8 +220,9 @@ class ShardingContainerPoolBalancer(config: WhiskConfig, controllerInstance: Ins
   private val messageProducer = messagingProvider.getProducer(config)
 
   /** 3. Send the activation to the invoker */
+  /**************ASMAA:turn Activation message to msg*/
   private def sendActivationToInvoker(producer: MessageProducer,
-                                      msg: ActivationMessage,
+                                      msg: Message,
                                       invoker: InstanceId): Future[RecordMetadata] = {
     implicit val transid: TransactionId = msg.transid
 
@@ -199,7 +232,9 @@ class ShardingContainerPoolBalancer(config: WhiskConfig, controllerInstance: Ins
     val start = transid.started(
       this,
       LoggingMarkers.CONTROLLER_KAFKA,
-      s"posting topic '$topic' with activation id '${msg.activationId}'",
+      /**********************AYA&ASMAA****************/
+      // s"posting topic '$topic' with activation id '${msg.activationId}'",
+      s"posting topic '$topic' ",/*with activation id '${msg.activationId}'",*/
       logLevel = InfoLevel)
 
     producer.send(topic, msg).andThen {

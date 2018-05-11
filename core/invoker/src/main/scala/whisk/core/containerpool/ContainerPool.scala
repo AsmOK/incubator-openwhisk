@@ -89,6 +89,17 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
       akka.event.Logging.InfoLevel)
   }
 
+  def logContainerStart(r: Prepare, containerState: String): Unit = {
+    val namespaceName = r.msg.user.namespace.name
+    val actionName = r.action.name.name
+
+    r.msg.transid.mark(
+      this,
+      LoggingMarkers.INVOKER_CONTAINER_START(containerState),
+      s"containerStart containerState: $containerState action: $actionName namespace: $namespaceName preparation",
+      akka.event.Logging.InfoLevel)
+  }
+
   def receive: Receive = {
     // A job to run on a container
     //
@@ -103,7 +114,7 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
           .schedule(r.action, r.msg.user.namespace, freePool)
           .map(container => {
             (container, "warm")
-          })
+          })  
           .orElse {
             if (busyPool.size + freePool.size < poolConfig.maxActiveContainers) {
               takePrewarmContainer(r.action)
@@ -113,7 +124,9 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
                 .orElse {
                   Some(createContainer(), "cold")
                 }
-            } else None
+            } else{
+              None
+            }
           }
           .orElse {
             // Remove a container and create a new one for the given job
@@ -152,6 +165,44 @@ class ContainerPool(childFactory: ActorRefFactory => ActorRef,
             r.retryLogDeadline
           }
           self ! Run(r.action, r.msg, retryLogDeadline)
+      }
+    case p: Prepare =>
+      val createdContainer = 
+          ContainerPool
+          .schedule(p.action, p.msg.user.namespace, freePool)
+          .map(container => {
+            (container, "warm")
+          })
+
+      createdContainer match {
+        case Some(((actor, data), containerState)) =>
+
+        case None =>
+          if(busyPool.size < poolConfig.maxActiveContainers){
+            val container = 
+            if (busyPool.size + freePool.size < poolConfig.maxActiveContainers) {
+              takePrewarmContainer(p.action)
+                .map(container => {
+                  (container, "prewarmed")
+                })
+                .orElse {
+                  Some(createContainer(), "cold")
+                }
+            } else{
+              None
+            }
+
+            container match {
+              case Some(((actor, data), containerState)) =>
+                actor ! p
+                logContainerStart(p, containerState)
+              case None =>
+                // no need to take a free container to replace it with the one we want to worm
+            }
+          }
+          else {
+            logging.info(this, "all capacity used")
+          }
       }
 
     // Container is free to take more work

@@ -1,0 +1,2 @@
+#!/bin/bash
+ansible-playbook -i environments/vagrant invoker.yml -e invoker_use_runc=False

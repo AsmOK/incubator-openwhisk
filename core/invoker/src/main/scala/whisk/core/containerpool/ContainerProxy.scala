@@ -32,6 +32,7 @@ import spray.json._
 import spray.json.DefaultJsonProtocol._
 import whisk.common.{AkkaLogging, Counter, LoggingMarkers, TransactionId}
 import whisk.core.connector.ActivationMessage
+import whisk.core.connector.PreparationMessage
 import whisk.core.containerpool.logging.LogCollectingException
 import whisk.core.entity._
 import whisk.core.entity.size._
@@ -65,6 +66,7 @@ case class WarmedData(container: Container,
 // Events received by the actor
 case class Start(exec: CodeExec[_], memoryLimit: ByteSize)
 case class Run(action: ExecutableWhiskAction, msg: ActivationMessage, retryLogDeadline: Option[Deadline] = None)
+case class Prepare(action: ExecutableWhiskAction, msg: PreparationMessage, retryLogDeadline: Option[Deadline] = None)
 case object Remove
 
 // Events sent by the actor
@@ -126,7 +128,7 @@ class ContainerProxy(
       goto(Starting)
 
     // cold start (no container to reuse or available stem cell container)
-    case Event(job: Run, _) =>
+    case Event(job: Run, _) =>  
       implicit val transid = job.msg.transid
 
       // create a new container
@@ -172,12 +174,53 @@ class ContainerProxy(
         .pipeTo(self)
 
       goto(Running)
+
+    case Event(job: Prepare, _) =>  
+      implicit val transid = job.msg.transid
+
+      // create a new container
+      val container = factory(
+        job.msg.transid,
+        ContainerProxy.containerName(instance, job.msg.user.namespace.name, job.action.name.name),
+        job.action.exec.image,
+        job.action.exec.pull,
+        job.action.limits.memory.megabytes.MB,
+        poolConfig.cpuShare)
+
+      // container factory will either yield a new container ready to execute the action, or
+      // starting up the container failed; for the latter, it's either an internal error starting
+      // a container or a docker action that is not conforming to the required action API
+      container
+        .andThen {
+          case Success(container) =>
+            // the container is ready to accept an activation; register it as PreWarmed; this
+            // normalizes the life cycle for containers and their cleanup when activations fail
+            self ! PreWarmedData(container, job.action.exec.kind, job.action.limits.memory.megabytes.MB)
+
+          case Failure(t) =>
+            // the container did not come up cleanly, so disambiguate the failure mode and then cleanup
+            // the failure is either the system fault, or for docker actions, the application/developer fault
+            val response = t match {
+              case WhiskContainerStartupError(msg) => ActivationResponse.whiskError(msg)
+              case BlackboxStartupError(msg)       => ActivationResponse.applicationError(msg)
+              case _                               => ActivationResponse.whiskError(Messages.resourceProvisionError)
+            }
+        }
+        .flatMap { container =>
+          // now attempt to inject the user code
+          initializeOnly(container, job)
+            .map(_ => WarmedData(container, job.msg.user.namespace, job.action, Instant.now))
+        }
+        .pipeTo(self)
+
+      goto(Running)
+
   }
 
   when(Starting) {
     // container was successfully obtained
-    case Event(data: PreWarmedData, _) =>
-      context.parent ! NeedWork(data)
+    case Event(data: PreWarmedData, _) => 
+      context.parent ! NeedWork(data)  
       goto(Started) using data
 
     // container creation failed
@@ -192,6 +235,16 @@ class ContainerProxy(
     case Event(job: Run, data: PreWarmedData) =>
       implicit val transid = job.msg.transid
       initializeAndRun(data.container, job)
+        .map(_ => WarmedData(data.container, job.msg.user.namespace, job.action, Instant.now))
+        .pipeTo(self)
+
+      goto(Running)
+
+      // container was prewarmed and received a Prepare 
+    case Event(job: Prepare, data: PreWarmedData) => 
+      logging.info(this, "prepare recieved in STARTED")
+      implicit val transid = job.msg.transid
+      initializeOnly(data.container, job)
         .map(_ => WarmedData(data.container, job.msg.user.namespace, job.action, Instant.now))
         .pipeTo(self)
 
@@ -235,8 +288,13 @@ class ContainerProxy(
 
     // pause grace timed out
     case Event(StateTimeout, data: WarmedData) =>
+      logging.info(this, s"pausing $data.container")
       data.container.suspend()(TransactionId.invokerNanny).map(_ => ContainerPaused).pipeTo(self)
       goto(Pausing)
+
+      //////////ASmaa ?
+    // case Event(data: WarmedData, _) =>
+    //   stay using data
 
     case Event(Remove, data: WarmedData) => destroyContainer(data.container)
   }
@@ -248,7 +306,7 @@ class ContainerProxy(
   }
 
   when(Paused, stateTimeout = unusedTimeout) {
-    case Event(job: Run, data: WarmedData) =>
+    case Event(job: Run, data: WarmedData) => //////just like ready but resumes
       implicit val transid = job.msg.transid
       data.container
         .resume()
@@ -341,8 +399,15 @@ class ContainerProxy(
 
     // Only initialize iff we haven't yet warmed the container
     val initialize = stateData match {
-      case data: WarmedData => Future.successful(None)
-      case _                => container.initialize(job.action.containerInitializer, actionTimeout).map(Some(_))
+      case data: WarmedData =>
+        ///////////////////////
+        logging.info(this,s"*********initialization is done for $job.msg.user")
+        Future.successful(None)
+      case _                => {
+        logging.info(this,s"*********initializing $job.msg.user")
+        container.initialize(job.action.containerInitializer, actionTimeout).map(Some(_))        
+      }
+
     }
 
     val activation: Future[WhiskActivation] = initialize
@@ -368,6 +433,7 @@ class ContainerProxy(
       }
       .recover {
         case InitializationError(interval, response) =>
+          logging.info(this, "initialization error")
           ContainerProxy.constructWhiskActivation(job, Some(interval), interval, response)
         case t =>
           // Actually, this should never happen - but we want to make sure to not miss a problem
@@ -414,6 +480,29 @@ class ContainerProxy(
       case Left(error)                           => Future.failed(error)
       case Right(act)                            => Future.successful(act)
     }
+  }
+
+  /**
+   * Initialize if necessary.
+   *
+   * @param container the container to run the job on
+   * @param job the job to prepare
+   * @return 
+   */
+  def initializeOnly(container: Container, job: Prepare)(implicit tid: TransactionId) : Future[Any] = {
+    val actionTimeout = job.action.limits.timeout.duration
+
+    // Only initialize iff we haven't yet warmed the container
+    wstateData match {
+      case data: WarmedData =>
+        logging.info(this,"**************** NO ***********")
+        Future.successful(None)
+      case _                =>
+        logging.info(this,s"*********initialization Only $container")
+        container.initialize(job.action.containerInitializer, actionTimeout)
+    }
+
+
   }
 }
 

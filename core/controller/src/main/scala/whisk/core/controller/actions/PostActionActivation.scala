@@ -34,6 +34,36 @@ protected[core] trait PostActionActivation extends PrimitiveActions with Sequenc
   /** The core collections require backend services to be injected in this trait. */
   services: WhiskServices =>
 
+  /* ************AYA&Asmaa ************** */
+  /**
+   * prepare an action which may be a sequence or a primitive (single) action.
+   *
+   * @param user the user posting the activation
+   * @param action the action to activate (parameters for packaged actions must already be merged)
+   * @param payload the parameters to pass to the action
+   * @param waitForResponse if not empty, wait up to specified duration for a response (this is used for blocking activations)
+   * @return a future that resolves with(activation id)
+   */
+  protected[controller] def warmAction(
+    user: Identity,
+    action: WhiskActionMetaData
+    /*waitForResponse: Option[FiniteDuration]*/)(implicit transid: TransactionId): Future[Unit] = {
+    action.toExecutableWhiskAction match {
+      // this is a topmost sequence
+      // the none case shall be visited within its enclosing seq.
+      // case None =>
+        //should not happen
+        // val SequenceExecMetaData(components) = action.exec
+        // prepareSequence(user, action, components, payload, waitForResponse, cause, topmost = true, 0).map(r => r._1)
+      // a non-deprecated ExecutableWhiskAction
+      case Some(executable) if !executable.exec.deprecated =>
+        warmSingleAction(user, executable)
+      // a deprecated exec
+      case _ =>
+        Future.failed(RejectRequest(BadRequest, Messages.runtimeDeprecated(action.exec)))
+    }
+  }
+
   /**
    * Invokes an action which may be a sequence or a primitive (single) action.
    *

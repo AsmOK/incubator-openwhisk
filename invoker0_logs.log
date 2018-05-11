@@ -1,0 +1,785 @@
+[2018-05-05T16:35:59.290Z] [INFO] Initializing Kamon...
+[INFO] [05/05/2018 16:36:00.115] [main] [StatsDExtension(akka://kamon)] Starting the Kamon(StatsD) extension
+[2018-05-05T16:36:00.208Z] [INFO] Slf4jLogger started
+[2018-05-05T16:36:00.332Z] [INFO] [??] [Config] environment set value for docker.image.prefix
+[2018-05-05T16:36:00.336Z] [INFO] [??] [Config] environment set value for whisk.api.host.name
+[2018-05-05T16:36:00.337Z] [INFO] [??] [Config] environment set value for docker.registry
+[2018-05-05T16:36:00.338Z] [INFO] [??] [Config] environment set value for whisk.api.host.proto
+[2018-05-05T16:36:00.338Z] [INFO] [??] [Config] environment set value for whisk.api.host.port
+[2018-05-05T16:36:00.339Z] [INFO] [??] [Config] environment set value for docker.image.tag
+[2018-05-05T16:36:00.340Z] [INFO] [??] [Config] environment set value for invoker.name
+[2018-05-05T16:36:00.340Z] [INFO] [??] [Config] environment set value for zookeeper.hosts
+[2018-05-05T16:36:00.341Z] [INFO] [??] [Config] environment set value for runtimes.manifest
+[2018-05-05T16:36:00.342Z] [INFO] [??] [Config] environment set value for kafka.hosts
+[2018-05-05T16:36:00.342Z] [INFO] [??] [Config] environment set value for port
+[2018-05-05T16:36:01.045Z] [INFO] [??] [Invoker] Command line arguments parsed to yield CmdLineArgs(None,Some(0))
+[2018-05-05T16:36:01.047Z] [INFO] [??] [Invoker] invokerReg: using proposedInvokerId 0
+[2018-05-05T16:36:01.695Z] [INFO] [??] [KafkaMessagingProvider] topic invoker0 already existed
+[2018-05-05T16:36:02.112Z] [INFO] [??] [InvokerReactive] LogStoreProvider: class whisk.core.containerpool.logging.DockerToActivationLogStore
+[2018-05-05T16:36:02.448Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:2121]
+[2018-05-05T16:36:02.522Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.ps_finish:2197:71]
+[2018-05-05T16:36:02.532Z] [INFO] [#sid_100] [DockerContainerFactory] removing 0 action containers.
+[2018-05-05T16:36:04.071Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:3747]
+[2018-05-05T16:36:04.464Z] [INFO] [#sid_101] [ContainerPool] pre-warming 2 nodejs:6 containers
+[2018-05-05T16:36:04.470Z] [INFO] [#sid_110] [MessageFeed] handler capacity = 4, pipeline fill at = 4, pipeline depth = 8
+[2018-05-05T16:36:04.785Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_2_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4461]
+[2018-05-05T16:36:04.789Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_1_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4464]
+[2018-05-05T16:36:05.152Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:12582325]
+[2018-05-05T16:36:05.188Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-05T16:36:05.416Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:5092:1345]
+[2018-05-05T16:36:05.426Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-05T16:36:05.615Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:12582789]
+[2018-05-05T16:36:05.688Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5364:897]
+[2018-05-05T16:36:05.759Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:12582926:137]
+[2018-05-05T16:36:05.789Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5465:1004]
+[2018-05-05T16:36:05.873Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_3_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:5549]
+[2018-05-05T16:36:05.879Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: prewarmed action: invokerHealthTestAction0 namespace: whisk.system activationId: 63355f4703264068b55f470326f06887 [marker:invoker_containerStart.prewarmed_count:12583053]
+[2018-05-05T16:36:05.883Z] [INFO] [#sid_121] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@b1e7ad8
+[2018-05-05T16:36:05.891Z] [INFO] [#sid_121] [DockerContainer] sending initialization to ContainerId(6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658) ContainerAddress(172.17.0.11,8080) [marker:invoker_activationInit_start:12583066]
+[2018-05-05T16:36:06.788Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:6463:913]
+[2018-05-05T16:36:06.972Z] [INFO] [#sid_121] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:12584147:1062]
+[2018-05-05T16:36:06.980Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658) ContainerAddress(172.17.0.11,8080) [marker:invoker_activationRun_start:12584151]
+[2018-05-05T16:36:07.011Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:12584183:25]
+[2018-05-05T16:36:07.032Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:12584207]
+[2018-05-05T16:36:07.109Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:12584281:72]
+[2018-05-05T16:36:07.152Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 63355f4703264068b55f470326f06887
+[2018-05-05T16:36:07.154Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/63355f4703264068b55f470326f06887, rev: null' [marker:database_saveDocument_start:12584328]
+[2018-05-05T16:36:07.167Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6829]
+[2018-05-05T16:36:07.168Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:12584338]
+[2018-05-05T16:36:07.177Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-05T16:36:07.180Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:12584338]
+[2018-05-05T16:36:07.201Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:12584375:36]
+[2018-05-05T16:36:07.206Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-05T16:36:07.207Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 73c360baee5a49918360baee5aa9912f [marker:invoker_containerStart.warm_count:12584381]
+[2018-05-05T16:36:07.214Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@b1e7ad8
+[2018-05-05T16:36:07.220Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658) ContainerAddress(172.17.0.11,8080) [marker:invoker_activationRun_start:12584384]
+[2018-05-05T16:36:07.227Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:12584396:10]
+[2018-05-05T16:36:07.227Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:12584397]
+[2018-05-05T16:36:07.237Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:12584405:8]
+[2018-05-05T16:36:07.241Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/73c360baee5a49918360baee5aa9912f, rev: null' [marker:database_saveDocument_start:12584406]
+[2018-05-05T16:36:07.242Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 73c360baee5a49918360baee5aa9912f
+[2018-05-05T16:36:07.277Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6946]
+[2018-05-05T16:36:07.295Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-05T16:36:07.295Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658 (timeout: 10 seconds) [marker:invoker_docker.pause_start:6972]
+[2018-05-05T16:36:07.320Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:6989:158]
+[2018-05-05T16:36:07.323Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:6994:44]
+[2018-05-05T16:36:07.363Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:7039:67]
+[2018-05-05T16:36:07.372Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:12584546:140]
+[2018-05-05T16:36:07.372Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:12584546:217]
+[2018-05-05T16:36:15.278Z] [INFO] [#tid_25] [InvokerReactive]  [marker:invoker_activation_start:152]
+[2018-05-05T16:36:15.287Z] [INFO] [#tid_25] [InvokerReactive]  [marker:invoker_activation_start:167]
+[2018-05-05T16:36:15.288Z] [INFO] [#tid_25] [InvokerReactive] ***** preparation of guest/add1
+[2018-05-05T16:36:15.351Z] [INFO] [#tid_25] [InvokerReactive]  [marker:invoker_activation_start:234]
+[2018-05-05T16:36:15.352Z] [INFO] [#tid_25] [InvokerReactive] ***** preparation of guest/add3
+[2018-05-05T16:36:15.354Z] [INFO] [#tid_25] [InvokerReactive]  [marker:invoker_activation_start:236]
+[2018-05-05T16:36:15.354Z] [INFO] [#tid_25] [InvokerReactive] ***** preparation of guest/add2
+[2018-05-05T16:36:15.677Z] [INFO] [#tid_25] [WhiskAction] [GET] serving from cache: CacheKey(guest/add1) [marker:database_cacheHit_count:559]
+[2018-05-05T16:36:15.679Z] [INFO] [#tid_25] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add1) [marker:database_cacheMiss_count:561]
+[2018-05-05T16:36:15.679Z] [INFO] [#tid_25] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add2) [marker:database_cacheMiss_count:561]
+[2018-05-05T16:36:15.679Z] [INFO] [#tid_25] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add3) [marker:database_cacheMiss_count:561]
+[2018-05-05T16:36:15.680Z] [INFO] [#tid_25] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocument_start:562]
+[2018-05-05T16:36:15.681Z] [INFO] [#tid_25] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocument_start:562]
+[2018-05-05T16:36:15.683Z] [INFO] [#tid_25] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocument_start:565]
+[2018-05-05T16:36:15.719Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocument_finish:602:39]
+[2018-05-05T16:36:15.720Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocument_finish:603:40]
+[2018-05-05T16:36:15.744Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocument_finish:627:60]
+[2018-05-05T16:36:15.752Z] [INFO] [#tid_25] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:634]
+[2018-05-05T16:36:15.752Z] [INFO] [#tid_25] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:634]
+[2018-05-05T16:36:15.756Z] [INFO] [#tid_25] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocumentAttachment_start:639]
+[2018-05-05T16:36:15.757Z] [INFO] [#tid_25] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:639]
+[2018-05-05T16:36:15.829Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:710:76]
+[2018-05-05T16:36:15.832Z] [INFO] [#tid_25] [ContainerPool] containerStart containerState: cold action: add1 namespace: guest activationId: 913bec0f048146d6bbec0f0481e6d6e8 [marker:invoker_containerStart.cold_count:712]
+[2018-05-05T16:36:15.834Z] [INFO] [#tid_25] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_4_guest_add1 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:714]
+[2018-05-05T16:36:15.836Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:717:78]
+[2018-05-05T16:36:15.848Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:729:95]
+[2018-05-05T16:36:15.850Z] [INFO] [#tid_25] [InvokerReactive] preparation msg sent to actor.
+[2018-05-05T16:36:15.850Z] [INFO] [#tid_25] [InvokerReactive] preparation msg sent to actor.
+[2018-05-05T16:36:15.854Z] [INFO] [??] [ContainerPool] ******
+[2018-05-05T16:36:15.856Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-05T16:36:15.858Z] [INFO] [#tid_25] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_5_guest_add3 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:741]
+[2018-05-05T16:36:15.859Z] [INFO] [#tid_25] [ContainerPool] containerStart containerState: cold action: add3 namespace: guest preparation [marker:invoker_containerStart.cold_count:741]
+[2018-05-05T16:36:15.860Z] [INFO] [??] [ContainerPool] ******
+[2018-05-05T16:36:15.861Z] [INFO] [#tid_25] [ContainerPool] containerStart containerState: cold action: add2 namespace: guest preparation [marker:invoker_containerStart.cold_count:743]
+[2018-05-05T16:36:15.861Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-05T16:36:15.862Z] [INFO] [#tid_25] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_6_guest_add2 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:744]
+[2018-05-05T16:36:15.889Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:768:126]
+[2018-05-05T16:36:15.889Z] [INFO] [#tid_25] [InvokerReactive] preparation msg sent to actor.
+[2018-05-05T16:36:15.891Z] [INFO] [??] [ContainerPool] In Prepare busy and free equal max *****
+[2018-05-05T16:36:15.891Z] [INFO] [??] [ContainerPool] add handling here
+[2018-05-05T16:36:16.712Z] [INFO] [#tid_25] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1594:850]
+[2018-05-05T16:36:16.716Z] [INFO] [#tid_25] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@138cea24
+[2018-05-05T16:36:16.720Z] [INFO] [#tid_25] [DockerContainer] sending initialization to ContainerId(abb061b84eb7346e88a1f538749413b5c2987d62ff4f8ab9c7a8d9c7502b618c) ContainerAddress(172.17.0.15,8080) [marker:invoker_activationInit_start:1599]
+[2018-05-05T16:36:16.728Z] [INFO] [#tid_25] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1610:869]
+[2018-05-05T16:36:16.733Z] [INFO] [#tid_25] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@465a924e
+[2018-05-05T16:36:16.734Z] [INFO] [#tid_25] [DockerContainer] sending initialization to ContainerId(ad6368d7fada330f226e9007266a53538e26c191feee3e82140c062bbee42551) ContainerAddress(172.17.0.14,8080) [marker:invoker_activationInit_start:1614]
+[2018-05-05T16:36:16.743Z] [INFO] [#tid_25] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1620:906]
+[2018-05-05T16:36:16.745Z] [INFO] [#tid_25] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@402a31dc
+[2018-05-05T16:36:16.745Z] [INFO] [#tid_25] [DockerContainer] sending initialization to ContainerId(b91cec20c651285dac070e58bd22fc0d53d4d0b51b5159ef50dd83643e49ba8d) ContainerAddress(172.17.0.13,8080) [marker:invoker_activationInit_start:1628]
+[2018-05-05T16:36:16.813Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-05T16:36:16.814Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-05T16:36:16.814Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause ad6368d7fada330f226e9007266a53538e26c191feee3e82140c062bbee42551 (timeout: 10 seconds) [marker:invoker_docker.pause_start:16490]
+[2018-05-05T16:36:16.815Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause abb061b84eb7346e88a1f538749413b5c2987d62ff4f8ab9c7a8d9c7502b618c (timeout: 10 seconds) [marker:invoker_docker.pause_start:16490]
+[2018-05-05T16:36:16.891Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:16568:77]
+[2018-05-05T16:36:16.920Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:16596:105]
+[2018-05-05T16:36:17.131Z] [INFO] [#tid_25] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:2013:385]
+[2018-05-05T16:36:17.131Z] [INFO] [#tid_25] [DockerContainer] sending arguments to /guest/add1 at ContainerId(b91cec20c651285dac070e58bd22fc0d53d4d0b51b5159ef50dd83643e49ba8d) ContainerAddress(172.17.0.13,8080) [marker:invoker_activationRun_start:2014]
+[2018-05-05T16:36:17.168Z] [INFO] [#tid_25] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:2050:36]
+[2018-05-05T16:36:17.169Z] [INFO] [#tid_25] [ContainerProxy]  [marker:invoker_collectLogs_start:2051]
+[2018-05-05T16:36:17.186Z] [INFO] [#tid_25] [InvokerReactive] posted completion of activation 913bec0f048146d6bbec0f0481e6d6e8
+[2018-05-05T16:36:17.195Z] [INFO] [#tid_25] [ContainerProxy]  [marker:invoker_collectLogs_finish:2076:24]
+[2018-05-05T16:36:17.196Z] [INFO] [#tid_25] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/913bec0f048146d6bbec0f0481e6d6e8, rev: null' [marker:database_saveDocument_start:2079]
+[2018-05-05T16:36:17.197Z] [INFO] [#tid_25] [InvokerReactive]  [marker:invoker_activation_start:2079]
+[2018-05-05T16:36:17.198Z] [INFO] [#tid_25] [WhiskAction] [GET] serving from cache: CacheKey(guest/add2) [marker:database_cacheHit_count:2081]
+[2018-05-05T16:36:17.199Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:16869]
+[2018-05-05T16:36:17.199Z] [INFO] [#tid_25] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:2081]
+[2018-05-05T16:36:17.222Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:16893:23]
+[2018-05-05T16:36:17.222Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_saveDocument_finish:2105:25]
+[2018-05-05T16:36:17.229Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:2111:30]
+[2018-05-05T16:36:17.230Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-05T16:36:17.230Z] [INFO] [#tid_25] [ContainerPool] containerStart containerState: warm action: add2 namespace: guest activationId: ec660f8cb6db42b3a60f8cb6db52b36d [marker:invoker_containerStart.warm_count:2112]
+[2018-05-05T16:36:17.231Z] [INFO] [#tid_25] [DockerClientWithFileAccess] running /usr/bin/docker unpause abb061b84eb7346e88a1f538749413b5c2987d62ff4f8ab9c7a8d9c7502b618c (timeout: 10 seconds) [marker:invoker_docker.unpause_start:2112]
+[2018-05-05T16:36:17.267Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-05T16:36:17.267Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause b91cec20c651285dac070e58bd22fc0d53d4d0b51b5159ef50dd83643e49ba8d (timeout: 10 seconds) [marker:invoker_docker.pause_start:16944]
+[2018-05-05T16:36:17.287Z] [INFO] [#tid_25] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:2170:58]
+[2018-05-05T16:36:17.288Z] [INFO] [#tid_25] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@138cea24
+[2018-05-05T16:36:17.289Z] [INFO] [#tid_25] [DockerContainer] sending arguments to /guest/add2 at ContainerId(abb061b84eb7346e88a1f538749413b5c2987d62ff4f8ab9c7a8d9c7502b618c) ContainerAddress(172.17.0.15,8080) [marker:invoker_activationRun_start:2170]
+[2018-05-05T16:36:17.326Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:17003:59]
+[2018-05-05T16:36:17.541Z] [INFO] [#tid_25] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:2423:824]
+[2018-05-05T16:36:29.299Z] [INFO] [#tid_25] [DockerContainer] running result: ConnectionError(org.apache.http.conn.HttpHostConnectException: Connect to 172.17.0.15:8080 [/172.17.0.15] failed: Connection refused (Connection refused)) [marker:invoker_activationRun_finish:14180:14]
+[2018-05-05T16:36:29.301Z] [INFO] [#tid_25] [ContainerProxy]  [marker:invoker_collectLogs_start:14183]
+[2018-05-05T16:36:29.317Z] [INFO] [#tid_25] [ContainerProxy]  [marker:invoker_collectLogs_finish:14199:15]
+[2018-05-05T16:36:29.325Z] [INFO] [#tid_25] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/ec660f8cb6db42b3a60f8cb6db52b36d, rev: null' [marker:database_saveDocument_start:14201]
+[2018-05-05T16:36:29.327Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:28990]
+[2018-05-05T16:36:29.328Z] [INFO] [#tid_25] [InvokerReactive] posted completion of activation ec660f8cb6db42b3a60f8cb6db52b36d
+[2018-05-05T16:36:29.329Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f abb061b84eb7346e88a1f538749413b5c2987d62ff4f8ab9c7a8d9c7502b618c (timeout: 1 minute) [marker:invoker_docker.rm_start:29001]
+[2018-05-05T16:36:29.345Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:29016:26]
+[2018-05-05T16:36:29.346Z] [INFO] [#tid_25] [CouchDbRestStore]  [marker:database_saveDocument_finish:14228:27]
+[2018-05-05T16:36:29.736Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:29413:412]
+[2018-05-05T16:37:17.889Z] [INFO] [#tid_25] [DockerContainer] initialization result: Timeout() [marker:invoker_activationInit_finish:62771:61155]
+[2018-05-05T16:41:04.085Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:303760]
+[2018-05-05T16:41:04.132Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:303808:47]
+[2018-05-05T16:41:04.132Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-05T16:46:04.104Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:603780]
+[2018-05-05T16:46:04.144Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:603821:41]
+[2018-05-05T16:46:04.145Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-05T16:46:07.385Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:607061]
+[2018-05-05T16:46:07.431Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:607108:47]
+[2018-05-05T16:46:07.432Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 6e3e5b6043a43efec15d33b6bd13712f7d091ee0d83d393af7bd52023c217658 (timeout: 1 minute) [marker:invoker_docker.rm_start:607108]
+[2018-05-05T16:46:07.780Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:607457:349]
+[2018-05-05T16:46:16.935Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause ad6368d7fada330f226e9007266a53538e26c191feee3e82140c062bbee42551 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:616611]
+[2018-05-05T16:46:16.972Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:616649:37]
+[2018-05-05T16:46:16.973Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f ad6368d7fada330f226e9007266a53538e26c191feee3e82140c062bbee42551 (timeout: 1 minute) [marker:invoker_docker.rm_start:616649]
+[2018-05-05T16:46:17.340Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:617016:367]
+[2018-05-05T16:46:17.346Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause b91cec20c651285dac070e58bd22fc0d53d4d0b51b5159ef50dd83643e49ba8d (timeout: 10 seconds) [marker:invoker_docker.unpause_start:617022]
+[2018-05-05T16:46:17.382Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:617059:36]
+[2018-05-05T16:46:17.383Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f b91cec20c651285dac070e58bd22fc0d53d4d0b51b5159ef50dd83643e49ba8d (timeout: 1 minute) [marker:invoker_docker.rm_start:617059]
+[2018-05-05T16:46:17.725Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:617402:342]
+[2018-05-05T16:51:04.126Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:903800]
+[2018-05-05T16:51:04.177Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:903853:52]
+[2018-05-05T16:51:04.177Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-05T16:56:04.144Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:1203821]
+[2018-05-05T16:56:04.199Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:1203875:54]
+[2018-05-05T16:56:04.199Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-05T17:01:04.029Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:1503706]
+[2018-05-05T17:01:04.086Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:1503762:55]
+[2018-05-05T17:01:04.087Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:08:13.142Z] [INFO] Initializing Kamon...
+[INFO] [05/06/2018 20:08:18.823] [main] [StatsDExtension(akka://kamon)] Starting the Kamon(StatsD) extension
+[2018-05-06T20:08:19.396Z] [INFO] Slf4jLogger started
+[2018-05-06T20:08:20.323Z] [INFO] [??] [Config] environment set value for docker.image.prefix
+[2018-05-06T20:08:20.326Z] [INFO] [??] [Config] environment set value for whisk.api.host.name
+[2018-05-06T20:08:20.331Z] [INFO] [??] [Config] environment set value for docker.registry
+[2018-05-06T20:08:20.331Z] [INFO] [??] [Config] environment set value for whisk.api.host.proto
+[2018-05-06T20:08:20.332Z] [INFO] [??] [Config] environment set value for whisk.api.host.port
+[2018-05-06T20:08:20.333Z] [INFO] [??] [Config] environment set value for docker.image.tag
+[2018-05-06T20:08:20.334Z] [INFO] [??] [Config] environment set value for invoker.name
+[2018-05-06T20:08:20.336Z] [INFO] [??] [Config] environment set value for zookeeper.hosts
+[2018-05-06T20:08:20.337Z] [INFO] [??] [Config] environment set value for runtimes.manifest
+[2018-05-06T20:08:20.338Z] [INFO] [??] [Config] environment set value for kafka.hosts
+[2018-05-06T20:08:20.339Z] [INFO] [??] [Config] environment set value for port
+[2018-05-06T20:08:26.062Z] [INFO] [??] [Invoker] Command line arguments parsed to yield CmdLineArgs(None,Some(0))
+[2018-05-06T20:08:26.063Z] [INFO] [??] [Invoker] invokerReg: using proposedInvokerId 0
+[2018-05-06T20:08:29.196Z] [INFO] [??] [KafkaMessagingProvider] topic invoker0 already existed
+[2018-05-06T20:08:30.093Z] [INFO] [??] [InvokerReactive] LogStoreProvider: class whisk.core.containerpool.logging.DockerToActivationLogStore
+[2018-05-06T20:08:30.978Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:10655]
+[2018-05-06T20:08:33.027Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.ps_finish:12714:2047]
+[2018-05-06T20:08:33.146Z] [INFO] [#sid_100] [DockerContainerFactory] removing 2 action containers.
+[2018-05-06T20:08:33.147Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker unpause 88539b6571ae8da2e233476266a98be90640c61e4c393a98eda5a0ec526bee2c (timeout: 10 seconds) [marker:invoker_docker.unpause_start:12835]
+[2018-05-06T20:08:33.151Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker unpause 025bea80471e80e6b6c5d1c6e4354fb76ce38868d7d0968e5914529d538e6e80 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:12839]
+[2018-05-06T20:08:33.186Z] [ERROR] [#sid_100] [DockerClientWithFileAccess] code: 1 , stdout: , stderr: Error response from daemon: Container 88539b6571ae8da2e233476266a98be90640c61e4c393a98eda5a0ec526bee2c is not paused [marker:invoker_docker.unpause_error:12868:33]
+[2018-05-06T20:08:33.188Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 88539b6571ae8da2e233476266a98be90640c61e4c393a98eda5a0ec526bee2c (timeout: 1 minute) [marker:invoker_docker.rm_start:12875]
+[2018-05-06T20:08:33.189Z] [ERROR] [#sid_100] [DockerClientWithFileAccess] code: 1 , stdout: , stderr: Error response from daemon: Container 025bea80471e80e6b6c5d1c6e4354fb76ce38868d7d0968e5914529d538e6e80 is not paused [marker:invoker_docker.unpause_error:12875:36]
+[2018-05-06T20:08:33.189Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 025bea80471e80e6b6c5d1c6e4354fb76ce38868d7d0968e5914529d538e6e80 (timeout: 1 minute) [marker:invoker_docker.rm_start:12875]
+[2018-05-06T20:08:33.425Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:13110:235]
+[2018-05-06T20:08:33.431Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:13118:243]
+[2018-05-06T20:08:37.614Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:17301]
+[2018-05-06T20:08:38.515Z] [INFO] [#sid_101] [ContainerPool] pre-warming 2 nodejs:6 containers
+[2018-05-06T20:08:38.539Z] [INFO] [#sid_110] [MessageFeed] handler capacity = 4, pipeline fill at = 4, pipeline depth = 8
+[2018-05-06T20:08:40.839Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_2_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:20526]
+[2018-05-06T20:08:40.855Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_1_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:20542]
+[2018-05-06T20:08:42.673Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:22356:1813]
+[2018-05-06T20:08:42.687Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:22375:1849]
+[2018-05-06T20:08:42.912Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:22599:5297]
+[2018-05-06T20:08:42.914Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:09:03.098Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:38275]
+[2018-05-06T20:09:03.118Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:03.300Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:38478]
+[2018-05-06T20:09:03.363Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:38540:62]
+[2018-05-06T20:09:03.432Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_3_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:43120]
+[2018-05-06T20:09:03.438Z] [INFO] [#sid_121] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:03.444Z] [INFO] [#sid_121] [DockerContainer] sending initialization to ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationInit_start:38620]
+[2018-05-06T20:09:03.453Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: prewarmed action: invokerHealthTestAction0 namespace: whisk.system activationId: bb6a9829f10e421daa9829f10e221d43 [marker:invoker_containerStart.prewarmed_count:38632]
+[2018-05-06T20:09:04.245Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:43932:812]
+[2018-05-06T20:09:04.734Z] [INFO] [#sid_121] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:39910:1279]
+[2018-05-06T20:09:04.740Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:39914]
+[2018-05-06T20:09:04.758Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:39937:22]
+[2018-05-06T20:09:04.770Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:39948]
+[2018-05-06T20:09:04.859Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40037:88]
+[2018-05-06T20:09:04.877Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/bb6a9829f10e421daa9829f10e221d43, rev: null' [marker:database_saveDocument_start:40055]
+[2018-05-06T20:09:04.887Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation bb6a9829f10e421daa9829f10e221d43
+[2018-05-06T20:09:04.896Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:44584]
+[2018-05-06T20:09:04.972Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:09:04.972Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.pause_start:44657]
+[2018-05-06T20:09:04.994Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40171]
+[2018-05-06T20:09:04.994Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:04.995Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40172]
+[2018-05-06T20:09:05.064Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:40239:67]
+[2018-05-06T20:09:05.073Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.076Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 8d4b3430914540868b34309145008650 [marker:invoker_containerStart.warm_count:40254]
+[2018-05-06T20:09:05.107Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:44794:137]
+[2018-05-06T20:09:05.109Z] [INFO] [#sid_121] [DockerClientWithFileAccess] running /usr/bin/docker unpause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.unpause_start:40287]
+[2018-05-06T20:09:05.145Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:44830:246]
+[2018-05-06T20:09:05.178Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:40353:298]
+[2018-05-06T20:09:05.211Z] [INFO] [#sid_121] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:40389:101]
+[2018-05-06T20:09:05.212Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.212Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:40391]
+[2018-05-06T20:09:05.225Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:40402:11]
+[2018-05-06T20:09:05.226Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:40403]
+[2018-05-06T20:09:05.232Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40411:7]
+[2018-05-06T20:09:05.234Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/8d4b3430914540868b34309145008650, rev: null' [marker:database_saveDocument_start:40412]
+[2018-05-06T20:09:05.234Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:44922]
+[2018-05-06T20:09:05.250Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 8d4b3430914540868b34309145008650
+[2018-05-06T20:09:05.283Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:44971:49]
+[2018-05-06T20:09:05.284Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:40463:50]
+[2018-05-06T20:09:05.293Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40471]
+[2018-05-06T20:09:05.294Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.295Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40472]
+[2018-05-06T20:09:05.296Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:09:05.297Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.pause_start:44984]
+[2018-05-06T20:09:05.309Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:40488:16]
+[2018-05-06T20:09:05.310Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.310Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 8e3793a45b064a3eb793a45b06ea3e55 [marker:invoker_containerStart.warm_count:40489]
+[2018-05-06T20:09:05.386Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:45073:89]
+[2018-05-06T20:09:05.387Z] [INFO] [#sid_121] [DockerClientWithFileAccess] running /usr/bin/docker unpause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.unpause_start:40565]
+[2018-05-06T20:09:05.432Z] [INFO] [#sid_121] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:40611:45]
+[2018-05-06T20:09:05.433Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.433Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:40611]
+[2018-05-06T20:09:05.446Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:40620:7]
+[2018-05-06T20:09:05.446Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:40621]
+[2018-05-06T20:09:05.454Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40632:11]
+[2018-05-06T20:09:05.455Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/8e3793a45b064a3eb793a45b06ea3e55, rev: null' [marker:database_saveDocument_start:40633]
+[2018-05-06T20:09:05.456Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45144]
+[2018-05-06T20:09:05.477Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 8e3793a45b064a3eb793a45b06ea3e55
+[2018-05-06T20:09:05.500Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40678]
+[2018-05-06T20:09:05.502Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.505Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40682]
+[2018-05-06T20:09:05.513Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45201:57]
+[2018-05-06T20:09:05.514Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:40693:59]
+[2018-05-06T20:09:05.527Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:09:05.530Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.pause_start:45215]
+[2018-05-06T20:09:05.535Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:40712:30]
+[2018-05-06T20:09:05.536Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.536Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: f79687346c7346229687346c73d62276 [marker:invoker_containerStart.warm_count:40714]
+[2018-05-06T20:09:05.581Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:45268:51]
+[2018-05-06T20:09:05.581Z] [INFO] [#sid_121] [DockerClientWithFileAccess] running /usr/bin/docker unpause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.unpause_start:40759]
+[2018-05-06T20:09:05.613Z] [INFO] [#sid_121] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:40792:33]
+[2018-05-06T20:09:05.614Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.614Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:40792]
+[2018-05-06T20:09:05.620Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:40798:5]
+[2018-05-06T20:09:05.620Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:40799]
+[2018-05-06T20:09:05.627Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40805:6]
+[2018-05-06T20:09:05.628Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/f79687346c7346229687346c73d62276, rev: null' [marker:database_saveDocument_start:40806]
+[2018-05-06T20:09:05.628Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45316]
+[2018-05-06T20:09:05.638Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation f79687346c7346229687346c73d62276
+[2018-05-06T20:09:05.666Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40844]
+[2018-05-06T20:09:05.666Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.667Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40845]
+[2018-05-06T20:09:05.668Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45355:39]
+[2018-05-06T20:09:05.669Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:40847:41]
+[2018-05-06T20:09:05.684Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:40861:16]
+[2018-05-06T20:09:05.684Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.689Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.690Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:40865]
+[2018-05-06T20:09:05.690Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 5aa6ae4bab4b456ca6ae4bab4bf56c8f [marker:invoker_containerStart.warm_count:40862]
+[2018-05-06T20:09:05.694Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:40873:7]
+[2018-05-06T20:09:05.695Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:40874]
+[2018-05-06T20:09:05.699Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40878:4]
+[2018-05-06T20:09:05.701Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/5aa6ae4bab4b456ca6ae4bab4bf56c8f, rev: null' [marker:database_saveDocument_start:40879]
+[2018-05-06T20:09:05.702Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45390]
+[2018-05-06T20:09:05.709Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 5aa6ae4bab4b456ca6ae4bab4bf56c8f
+[2018-05-06T20:09:05.729Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40906]
+[2018-05-06T20:09:05.735Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.736Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40907]
+[2018-05-06T20:09:05.745Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45430:40]
+[2018-05-06T20:09:05.746Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:40922:43]
+[2018-05-06T20:09:05.753Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:40932:25]
+[2018-05-06T20:09:05.754Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.754Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: cc9d7ea2b84f44659d7ea2b84f5465f3 [marker:invoker_containerStart.warm_count:40933]
+[2018-05-06T20:09:05.754Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.758Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:40936]
+[2018-05-06T20:09:05.772Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:40950:14]
+[2018-05-06T20:09:05.774Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:40951]
+[2018-05-06T20:09:05.785Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation cc9d7ea2b84f44659d7ea2b84f5465f3
+[2018-05-06T20:09:05.799Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:40977:24]
+[2018-05-06T20:09:05.801Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/cc9d7ea2b84f44659d7ea2b84f5465f3, rev: null' [marker:database_saveDocument_start:40979]
+[2018-05-06T20:09:05.805Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45490]
+[2018-05-06T20:09:05.819Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:40997]
+[2018-05-06T20:09:05.820Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.821Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:40998]
+[2018-05-06T20:09:05.841Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:41019:21]
+[2018-05-06T20:09:05.842Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.842Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 452f5ff316f0421faf5ff316f0021fb2 [marker:invoker_containerStart.warm_count:41021]
+[2018-05-06T20:09:05.842Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.843Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:41021]
+[2018-05-06T20:09:05.846Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45533:43]
+[2018-05-06T20:09:05.849Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:41027:6]
+[2018-05-06T20:09:05.850Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:41024:44]
+[2018-05-06T20:09:05.852Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:41031]
+[2018-05-06T20:09:05.864Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:41043:11]
+[2018-05-06T20:09:05.867Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/452f5ff316f0421faf5ff316f0021fb2, rev: null' [marker:database_saveDocument_start:41045]
+[2018-05-06T20:09:05.868Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 452f5ff316f0421faf5ff316f0021fb2
+[2018-05-06T20:09:05.870Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45557]
+[2018-05-06T20:09:05.902Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:41081]
+[2018-05-06T20:09:05.903Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:09:05.903Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:41081]
+[2018-05-06T20:09:05.913Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45594:37]
+[2018-05-06T20:09:05.913Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:41090:45]
+[2018-05-06T20:09:05.922Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:41100:19]
+[2018-05-06T20:09:05.923Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:09:05.923Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 82ef557dc39a413faf557dc39a813f9d [marker:invoker_containerStart.warm_count:41101]
+[2018-05-06T20:09:05.923Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@2c759b1c
+[2018-05-06T20:09:05.923Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:41102]
+[2018-05-06T20:09:05.930Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:41109:6]
+[2018-05-06T20:09:05.932Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:41110]
+[2018-05-06T20:09:05.943Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:41121:11]
+[2018-05-06T20:09:05.943Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 82ef557dc39a413faf557dc39a813f9d
+[2018-05-06T20:09:05.944Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/82ef557dc39a413faf557dc39a813f9d, rev: null' [marker:database_saveDocument_start:41122]
+[2018-05-06T20:09:05.945Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:45633]
+[2018-05-06T20:09:05.968Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:45655:22]
+[2018-05-06T20:09:05.969Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:41148:25]
+[2018-05-06T20:09:06.006Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:09:06.006Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.pause_start:45694]
+[2018-05-06T20:09:06.053Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:45741:47]
+[2018-05-06T20:13:37.629Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:317316]
+[2018-05-06T20:13:37.673Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:317360:43]
+[2018-05-06T20:13:37.673Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:18:37.649Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:617337]
+[2018-05-06T20:18:37.693Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:617381:44]
+[2018-05-06T20:18:37.694Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:19:06.069Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 10 seconds) [marker:invoker_docker.unpause_start:645756]
+[2018-05-06T20:19:06.111Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:645799:43]
+[2018-05-06T20:19:06.114Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 28430a5a69c356480b0dea893b2facb5c393bb8bafca273278ca50d84328a26a (timeout: 1 minute) [marker:invoker_docker.rm_start:645801]
+[2018-05-06T20:19:06.438Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:646125:324]
+[2018-05-06T20:23:37.668Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:917354]
+[2018-05-06T20:23:37.715Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:917403:49]
+[2018-05-06T20:23:37.716Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:27:59.005Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:1178686]
+[2018-05-06T20:27:59.006Z] [INFO] [??] [Invoker] Shutting down Kamon with coordinated shutdown
+[2018-05-06T20:27:59.037Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.ps_finish:1178723:33]
+[2018-05-06T20:27:59.037Z] [INFO] [#sid_100] [DockerContainerFactory] removing 2 action containers.
+[2018-05-06T20:27:59.037Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker unpause 3e0cac7ef182edb8e0e92469ef3fcca16c15affb166a1094e9449bc411fdd2d1 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:1178723]
+[2018-05-06T20:27:59.038Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker unpause 927eb90b6eeadc43b776504022c3d76dbd24dc70da2255018724c8f9cba516ed (timeout: 10 seconds) [marker:invoker_docker.unpause_start:1178724]
+[ERROR] [05/06/2018 20:27:59.093] [pool-1-thread-14] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] code: 1 , stdout: , stderr: Error response from daemon: Container 3e0cac7ef182edb8e0e92469ef3fcca16c15affb166a1094e9449bc411fdd2d1 is not paused [marker:invoker_docker.unpause_error:1178781:58]
+[ERROR] [05/06/2018 20:27:59.090] [pool-1-thread-20] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] code: 1 , stdout: , stderr: Error response from daemon: Container 927eb90b6eeadc43b776504022c3d76dbd24dc70da2255018724c8f9cba516ed is not paused [marker:invoker_docker.unpause_error:1178778:53]
+[ERROR] [05/06/2018 20:27:59.113] [pool-1-thread-20] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.rm_error:1178801:14]
+[ERROR] [05/06/2018 20:27:59.113] [pool-1-thread-10] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.rm_error:1178801:14]
+[2018-05-06T20:29:05.094Z] [INFO] Initializing Kamon...
+[INFO] [05/06/2018 20:29:05.867] [main] [StatsDExtension(akka://kamon)] Starting the Kamon(StatsD) extension
+[2018-05-06T20:29:05.977Z] [INFO] Slf4jLogger started
+[2018-05-06T20:29:06.079Z] [INFO] [??] [Config] environment set value for docker.image.prefix
+[2018-05-06T20:29:06.083Z] [INFO] [??] [Config] environment set value for whisk.api.host.name
+[2018-05-06T20:29:06.084Z] [INFO] [??] [Config] environment set value for docker.registry
+[2018-05-06T20:29:06.084Z] [INFO] [??] [Config] environment set value for whisk.api.host.proto
+[2018-05-06T20:29:06.085Z] [INFO] [??] [Config] environment set value for whisk.api.host.port
+[2018-05-06T20:29:06.086Z] [INFO] [??] [Config] environment set value for docker.image.tag
+[2018-05-06T20:29:06.087Z] [INFO] [??] [Config] environment set value for invoker.name
+[2018-05-06T20:29:06.087Z] [INFO] [??] [Config] environment set value for zookeeper.hosts
+[2018-05-06T20:29:06.088Z] [INFO] [??] [Config] environment set value for runtimes.manifest
+[2018-05-06T20:29:06.088Z] [INFO] [??] [Config] environment set value for kafka.hosts
+[2018-05-06T20:29:06.089Z] [INFO] [??] [Config] environment set value for port
+[2018-05-06T20:29:06.694Z] [INFO] [??] [Invoker] Command line arguments parsed to yield CmdLineArgs(None,Some(0))
+[2018-05-06T20:29:06.699Z] [INFO] [??] [Invoker] invokerReg: using proposedInvokerId 0
+[2018-05-06T20:29:07.382Z] [INFO] [??] [KafkaMessagingProvider] topic invoker0 already existed
+[2018-05-06T20:29:07.769Z] [INFO] [??] [InvokerReactive] LogStoreProvider: class whisk.core.containerpool.logging.DockerToActivationLogStore
+[2018-05-06T20:29:08.132Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:2057]
+[2018-05-06T20:29:08.201Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.ps_finish:2127:65]
+[2018-05-06T20:29:08.210Z] [INFO] [#sid_100] [DockerContainerFactory] removing 0 action containers.
+[2018-05-06T20:29:09.904Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:3831]
+[2018-05-06T20:29:10.247Z] [INFO] [#sid_110] [MessageFeed] handler capacity = 4, pipeline fill at = 4, pipeline depth = 8
+[2018-05-06T20:29:10.272Z] [INFO] [#sid_101] [ContainerPool] pre-warming 2 nodejs:6 containers
+[2018-05-06T20:29:10.550Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_1_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4478]
+[2018-05-06T20:29:10.555Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_2_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4482]
+[2018-05-06T20:29:11.007Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:4932:1101]
+[2018-05-06T20:29:11.012Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:29:11.132Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:1246309]
+[2018-05-06T20:29:11.173Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:29:11.503Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5420:938]
+[2018-05-06T20:29:11.522Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:1246701]
+[2018-05-06T20:29:11.634Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5559:1081]
+[2018-05-06T20:29:11.644Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:1246816:113]
+[2018-05-06T20:29:11.730Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_3_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:5658]
+[2018-05-06T20:29:11.731Z] [INFO] [#sid_121] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@3e77adaa
+[2018-05-06T20:29:11.731Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: prewarmed action: invokerHealthTestAction0 namespace: whisk.system activationId: 145ba8b00379490e9ba8b00379290ebd [marker:invoker_containerStart.prewarmed_count:1246910]
+[2018-05-06T20:29:11.742Z] [INFO] [#sid_121] [DockerContainer] sending initialization to ContainerId(c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationInit_start:1246917]
+[2018-05-06T20:29:12.505Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:6433:774]
+[2018-05-06T20:29:12.708Z] [INFO] [#sid_121] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:1247886:959]
+[2018-05-06T20:29:12.715Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:1247893]
+[2018-05-06T20:29:12.748Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:1247926:32]
+[2018-05-06T20:29:12.772Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:1247950]
+[2018-05-06T20:29:12.843Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:1248022:71]
+[2018-05-06T20:29:12.875Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/145ba8b00379490e9ba8b00379290ebd, rev: null' [marker:database_saveDocument_start:1248053]
+[2018-05-06T20:29:12.884Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6807]
+[2018-05-06T20:29:12.913Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 145ba8b00379490e9ba8b00379290ebd
+[2018-05-06T20:29:12.921Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:1248100]
+[2018-05-06T20:29:12.922Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:29:12.922Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:1248100]
+[2018-05-06T20:29:12.952Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:1248130:30]
+[2018-05-06T20:29:12.956Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:29:12.956Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: 1261a5107a7f4b02a1a5107a7f8b02d3 [marker:invoker_containerStart.warm_count:1248135]
+[2018-05-06T20:29:12.957Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@3e77adaa
+[2018-05-06T20:29:12.967Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:1248136]
+[2018-05-06T20:29:12.970Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:1248148:11]
+[2018-05-06T20:29:12.970Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:1248149]
+[2018-05-06T20:29:12.981Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:1248157:8]
+[2018-05-06T20:29:12.981Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/1261a5107a7f4b02a1a5107a7f8b02d3, rev: null' [marker:database_saveDocument_start:1248159]
+[2018-05-06T20:29:12.992Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 1261a5107a7f4b02a1a5107a7f8b02d3
+[2018-05-06T20:29:13.008Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6930]
+[2018-05-06T20:29:13.056Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:6976:169]
+[2018-05-06T20:29:13.061Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:29:13.062Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6 (timeout: 10 seconds) [marker:invoker_docker.pause_start:6989]
+[2018-05-06T20:29:13.101Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:7024:93]
+[2018-05-06T20:29:13.118Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:1248296:240]
+[2018-05-06T20:29:13.122Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:1248296:137]
+[2018-05-06T20:29:13.129Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:7056:67]
+[2018-05-06T20:30:03.980Z] [INFO] [#tid_2] [InvokerReactive]  [marker:invoker_activation_start:822]
+[2018-05-06T20:30:04.026Z] [INFO] [#tid_2] [InvokerReactive]  [marker:invoker_activation_start:868]
+[2018-05-06T20:30:04.026Z] [INFO] [#tid_2] [InvokerReactive]  [marker:invoker_activation_start:868]
+[2018-05-06T20:30:04.028Z] [INFO] [#tid_2] [InvokerReactive]  [marker:invoker_activation_start:868]
+[2018-05-06T20:30:04.028Z] [INFO] [#tid_2] [InvokerReactive] ***** preparation of guest/add2
+[2018-05-06T20:30:04.029Z] [INFO] [#tid_2] [InvokerReactive] ***** preparation of guest/add1
+[2018-05-06T20:30:04.029Z] [INFO] [#tid_2] [InvokerReactive] ***** preparation of guest/add3
+[2018-05-06T20:30:04.439Z] [INFO] [#tid_2] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add3) [marker:database_cacheMiss_count:1283]
+[2018-05-06T20:30:04.441Z] [INFO] [#tid_2] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add1) [marker:database_cacheMiss_count:1283]
+[2018-05-06T20:30:04.442Z] [INFO] [#tid_2] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocument_start:1283]
+[2018-05-06T20:30:04.443Z] [INFO] [#tid_2] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocument_start:1283]
+[2018-05-06T20:30:04.447Z] [INFO] [#tid_2] [WhiskAction] [GET] serving from cache: CacheKey(guest/add1) [marker:database_cacheHit_count:1290]
+[2018-05-06T20:30:04.461Z] [INFO] [#tid_2] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add2) [marker:database_cacheMiss_count:1304]
+[2018-05-06T20:30:04.461Z] [INFO] [#tid_2] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocument_start:1305]
+[2018-05-06T20:30:04.508Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocument_finish:1352:68]
+[2018-05-06T20:30:04.510Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocument_finish:1353:48]
+[2018-05-06T20:30:04.514Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocument_finish:1357:73]
+[2018-05-06T20:30:04.526Z] [INFO] [#tid_2] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocumentAttachment_start:1370]
+[2018-05-06T20:30:04.527Z] [INFO] [#tid_2] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:1370]
+[2018-05-06T20:30:04.529Z] [INFO] [#tid_2] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:1370]
+[2018-05-06T20:30:04.536Z] [INFO] [#tid_2] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:1379]
+[2018-05-06T20:30:04.613Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:1455:84]
+[2018-05-06T20:30:04.613Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:1455:82]
+[2018-05-06T20:30:04.614Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:1455:75]
+[2018-05-06T20:30:04.616Z] [INFO] [#tid_2] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:30:04.624Z] [INFO] [#tid_2] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:30:04.625Z] [INFO] [#tid_2] [ContainerPool] containerStart containerState: cold action: add1 namespace: guest activationId: f1c4617888c140fa84617888c1c0fa34 [marker:invoker_containerStart.cold_count:1459]
+[2018-05-06T20:30:04.625Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:1464:94]
+[2018-05-06T20:30:04.626Z] [INFO] [#tid_2] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:30:04.628Z] [INFO] [#tid_2] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_4_guest_add1 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:1468]
+[2018-05-06T20:30:04.628Z] [INFO] [??] [ContainerPool] ******
+[2018-05-06T20:30:04.629Z] [INFO] [#tid_2] [ContainerPool] containerStart containerState: cold action: add3 namespace: guest preparation [marker:invoker_containerStart.cold_count:1470]
+[2018-05-06T20:30:04.630Z] [INFO] [??] [ContainerPool] ******
+[2018-05-06T20:30:04.630Z] [INFO] [#tid_2] [ContainerPool] containerStart containerState: cold action: add2 namespace: guest preparation [marker:invoker_containerStart.cold_count:1471]
+[2018-05-06T20:30:04.633Z] [INFO] [??] [ContainerPool] In Prepare busy and free equal max *****
+[2018-05-06T20:30:04.634Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-06T20:30:04.635Z] [INFO] [??] [ContainerPool] add handling here
+[2018-05-06T20:30:04.635Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-06T20:30:04.635Z] [INFO] [#tid_2] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_6_guest_add3 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:1474]
+[2018-05-06T20:30:04.637Z] [INFO] [#tid_2] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_5_guest_add2 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:1475]
+[2018-05-06T20:30:05.888Z] [INFO] [#tid_2] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:2731:1256]
+[2018-05-06T20:30:05.891Z] [INFO] [#tid_2] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@c83e5cc
+[2018-05-06T20:30:05.892Z] [INFO] [#tid_2] [DockerContainer] sending initialization to ContainerId(d044ef13737a8587688a0a413296c5e6c18c7044cc83a55d3b37362ddf8f0488) ContainerAddress(172.17.0.14,8080) [marker:invoker_activationInit_start:2735]
+[2018-05-06T20:30:05.905Z] [INFO] [#tid_2] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:2748:1280]
+[2018-05-06T20:30:05.905Z] [INFO] [#tid_2] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:2749:1274]
+[2018-05-06T20:30:05.908Z] [INFO] [#tid_2] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@4e263eeb
+[2018-05-06T20:30:05.908Z] [INFO] [#tid_2] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@50599b30
+[2018-05-06T20:30:05.909Z] [INFO] [#tid_2] [DockerContainer] sending initialization to ContainerId(1b453081efdb5c3439a6903ed71964ab4e302fb8cb9a263666e31a2bd295e3f1) ContainerAddress(172.17.0.13,8080) [marker:invoker_activationInit_start:2751]
+[2018-05-06T20:30:05.909Z] [INFO] [#tid_2] [DockerContainer] sending initialization to ContainerId(8ad9d645c89853ad2e516bcc3f7ecd57e7a9b4973011710f1914068bd2a308d4) ContainerAddress(172.17.0.15,8080) [marker:invoker_activationInit_start:2752]
+[2018-05-06T20:30:05.967Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:30:05.969Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause d044ef13737a8587688a0a413296c5e6c18c7044cc83a55d3b37362ddf8f0488 (timeout: 10 seconds) [marker:invoker_docker.pause_start:59895]
+[2018-05-06T20:30:05.976Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:30:05.977Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 1b453081efdb5c3439a6903ed71964ab4e302fb8cb9a263666e31a2bd295e3f1 (timeout: 10 seconds) [marker:invoker_docker.pause_start:59904]
+[2018-05-06T20:30:06.014Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:59940:43]
+[2018-05-06T20:30:06.028Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:59955:51]
+[2018-05-06T20:30:08.685Z] [INFO] [#tid_2] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:5528:2776]
+[2018-05-06T20:30:08.685Z] [INFO] [#tid_2] [DockerContainer] sending arguments to /guest/add1 at ContainerId(8ad9d645c89853ad2e516bcc3f7ecd57e7a9b4973011710f1914068bd2a308d4) ContainerAddress(172.17.0.15,8080) [marker:invoker_activationRun_start:5529]
+[2018-05-06T20:30:09.042Z] [INFO] [#tid_2] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:5885:356]
+[2018-05-06T20:30:09.042Z] [INFO] [#tid_2] [ContainerProxy]  [marker:invoker_collectLogs_start:5886]
+[2018-05-06T20:30:09.080Z] [INFO] [#tid_2] [InvokerReactive] posted completion of activation f1c4617888c140fa84617888c1c0fa34
+[2018-05-06T20:30:09.104Z] [INFO] [#tid_2] [ContainerProxy]  [marker:invoker_collectLogs_finish:5928:42]
+[2018-05-06T20:30:09.104Z] [INFO] [#tid_2] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/f1c4617888c140fa84617888c1c0fa34, rev: null' [marker:database_saveDocument_start:5941]
+[2018-05-06T20:30:09.104Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:63021]
+[2018-05-06T20:30:09.147Z] [INFO] [#tid_2] [InvokerReactive]  [marker:invoker_activation_start:5990]
+[2018-05-06T20:30:09.148Z] [INFO] [#tid_2] [WhiskAction] [GET] serving from cache: CacheKey(guest/add2) [marker:database_cacheHit_count:5992]
+[2018-05-06T20:30:09.149Z] [INFO] [#tid_2] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:5992]
+[2018-05-06T20:30:09.161Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:63084:62]
+[2018-05-06T20:30:09.162Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_saveDocument_finish:6005:64]
+[2018-05-06T20:30:09.169Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:30:09.170Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 8ad9d645c89853ad2e516bcc3f7ecd57e7a9b4973011710f1914068bd2a308d4 (timeout: 10 seconds) [marker:invoker_docker.pause_start:63095]
+[2018-05-06T20:30:09.193Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:6037:45]
+[2018-05-06T20:30:09.194Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:30:09.194Z] [INFO] [#tid_2] [ContainerPool] containerStart containerState: warm action: add2 namespace: guest activationId: 4e8e74479c5d48f78e74479c5d68f760 [marker:invoker_containerStart.warm_count:6037]
+[2018-05-06T20:30:09.195Z] [INFO] [#tid_2] [DockerClientWithFileAccess] running /usr/bin/docker unpause d044ef13737a8587688a0a413296c5e6c18c7044cc83a55d3b37362ddf8f0488 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:6038]
+[2018-05-06T20:30:09.229Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:63155:59]
+[2018-05-06T20:30:09.254Z] [INFO] [#tid_2] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:6096:58]
+[2018-05-06T20:30:09.254Z] [INFO] [#tid_2] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@c83e5cc
+[2018-05-06T20:30:09.255Z] [INFO] [#tid_2] [DockerContainer] sending arguments to /guest/add2 at ContainerId(d044ef13737a8587688a0a413296c5e6c18c7044cc83a55d3b37362ddf8f0488) ContainerAddress(172.17.0.14,8080) [marker:invoker_activationRun_start:6098]
+[2018-05-06T20:30:09.605Z] [INFO] [#tid_2] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:6449:3714]
+[2018-05-06T20:30:21.271Z] [INFO] [#tid_2] [DockerContainer] running result: ConnectionError(org.apache.http.conn.HttpHostConnectException: Connect to 172.17.0.14:8080 [/172.17.0.14] failed: Connection refused (Connection refused)) [marker:invoker_activationRun_finish:18115:5]
+[2018-05-06T20:30:21.277Z] [INFO] [#tid_2] [ContainerProxy]  [marker:invoker_collectLogs_start:18120]
+[2018-05-06T20:30:21.282Z] [INFO] [#tid_2] [InvokerReactive] posted completion of activation 4e8e74479c5d48f78e74479c5d68f760
+[2018-05-06T20:30:21.304Z] [INFO] [#tid_2] [ContainerProxy]  [marker:invoker_collectLogs_finish:18147:27]
+[2018-05-06T20:30:21.307Z] [INFO] [#tid_2] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/4e8e74479c5d48f78e74479c5d68f760, rev: null' [marker:database_saveDocument_start:18150]
+[2018-05-06T20:30:21.313Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:75231]
+[2018-05-06T20:30:21.315Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f d044ef13737a8587688a0a413296c5e6c18c7044cc83a55d3b37362ddf8f0488 (timeout: 1 minute) [marker:invoker_docker.rm_start:75240]
+[2018-05-06T20:30:21.342Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:75265:30]
+[2018-05-06T20:30:21.343Z] [INFO] [#tid_2] [CouchDbRestStore]  [marker:database_saveDocument_finish:18186:36]
+[2018-05-06T20:30:21.694Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:75621:381]
+[2018-05-06T20:31:06.973Z] [INFO] [#tid_2] [DockerContainer] initialization result: Timeout() [marker:invoker_activationInit_finish:63816:61064]
+[2018-05-06T20:34:09.917Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:303845]
+[2018-05-06T20:34:09.960Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:303887:42]
+[2018-05-06T20:34:09.960Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:39:09.937Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:603864]
+[2018-05-06T20:39:09.982Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:603910:45]
+[2018-05-06T20:39:09.983Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:39:13.149Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:607077]
+[2018-05-06T20:39:13.186Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:607113:36]
+[2018-05-06T20:39:13.187Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f c66dc639e465f3b0fc1b51200b9dfbedb3d281d878f6762484ed65fae5e32de6 (timeout: 1 minute) [marker:invoker_docker.rm_start:607114]
+[2018-05-06T20:39:13.544Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:607470:356]
+[2018-05-06T20:40:06.049Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 1b453081efdb5c3439a6903ed71964ab4e302fb8cb9a263666e31a2bd295e3f1 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:659977]
+[2018-05-06T20:40:06.092Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:660019:42]
+[2018-05-06T20:40:06.092Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 1b453081efdb5c3439a6903ed71964ab4e302fb8cb9a263666e31a2bd295e3f1 (timeout: 1 minute) [marker:invoker_docker.rm_start:660019]
+[2018-05-06T20:40:06.421Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:660348:329]
+[2018-05-06T20:40:09.247Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 8ad9d645c89853ad2e516bcc3f7ecd57e7a9b4973011710f1914068bd2a308d4 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:663175]
+[2018-05-06T20:40:09.292Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:663219:44]
+[2018-05-06T20:40:09.292Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 8ad9d645c89853ad2e516bcc3f7ecd57e7a9b4973011710f1914068bd2a308d4 (timeout: 1 minute) [marker:invoker_docker.rm_start:663220]
+[2018-05-06T20:40:09.641Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:663569:349]
+[2018-05-06T20:44:09.958Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:903885]
+[2018-05-06T20:44:10.001Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:903928:43]
+[2018-05-06T20:44:10.001Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:44:49.068Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:942996]
+[ERROR] [05/06/2018 20:44:49.164] [pool-1-thread-12] [Invoker$(akka://invoker-actor-system)] [??] [KafkaConsumerConnector] poll timeout occurred. Retrying 3 more times.
+[ERROR] [05/06/2018 20:44:49.164] [pool-1-thread-2] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.unpause_error:943091:7]
+[ERROR] [05/06/2018 20:44:49.164] [pool-1-thread-19] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.unpause_error:943092:10]
+[ERROR] [05/06/2018 20:44:49.183] [pool-1-thread-19] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.rm_error:943111:15]
+[ERROR] [05/06/2018 20:44:49.214] [pool-1-thread-19] [Invoker$(akka://invoker-actor-system)] [#sid_100] [DockerClientWithFileAccess] cannot enqueue after timer shutdown [marker:invoker_docker.rm_error:943131:34]
+[2018-05-06T20:45:21.335Z] [INFO] Initializing Kamon...
+[INFO] [05/06/2018 20:45:22.123] [main] [StatsDExtension(akka://kamon)] Starting the Kamon(StatsD) extension
+[2018-05-06T20:45:22.234Z] [INFO] Slf4jLogger started
+[2018-05-06T20:45:22.333Z] [INFO] [??] [Config] environment set value for docker.image.prefix
+[2018-05-06T20:45:22.336Z] [INFO] [??] [Config] environment set value for whisk.api.host.name
+[2018-05-06T20:45:22.337Z] [INFO] [??] [Config] environment set value for docker.registry
+[2018-05-06T20:45:22.338Z] [INFO] [??] [Config] environment set value for whisk.api.host.proto
+[2018-05-06T20:45:22.338Z] [INFO] [??] [Config] environment set value for whisk.api.host.port
+[2018-05-06T20:45:22.339Z] [INFO] [??] [Config] environment set value for docker.image.tag
+[2018-05-06T20:45:22.340Z] [INFO] [??] [Config] environment set value for invoker.name
+[2018-05-06T20:45:22.340Z] [INFO] [??] [Config] environment set value for zookeeper.hosts
+[2018-05-06T20:45:22.341Z] [INFO] [??] [Config] environment set value for runtimes.manifest
+[2018-05-06T20:45:22.341Z] [INFO] [??] [Config] environment set value for kafka.hosts
+[2018-05-06T20:45:22.342Z] [INFO] [??] [Config] environment set value for port
+[2018-05-06T20:45:22.959Z] [INFO] [??] [Invoker] Command line arguments parsed to yield CmdLineArgs(None,Some(0))
+[2018-05-06T20:45:22.961Z] [INFO] [??] [Invoker] invokerReg: using proposedInvokerId 0
+[2018-05-06T20:45:23.604Z] [INFO] [??] [KafkaMessagingProvider] topic invoker0 already existed
+[2018-05-06T20:45:23.910Z] [INFO] [??] [InvokerReactive] LogStoreProvider: class whisk.core.containerpool.logging.DockerToActivationLogStore
+[2018-05-06T20:45:24.234Z] [INFO] [#sid_100] [DockerClientWithFileAccess] running /usr/bin/docker ps --quiet --no-trunc --all --filter name=wsk00_ (timeout: 1 minute) [marker:invoker_docker.ps_start:1907]
+[2018-05-06T20:45:24.292Z] [INFO] [#sid_100] [DockerClientWithFileAccess]  [marker:invoker_docker.ps_finish:1967:56]
+[2018-05-06T20:45:24.298Z] [INFO] [#sid_100] [DockerContainerFactory] removing 0 action containers.
+[2018-05-06T20:45:25.920Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:3587]
+[2018-05-06T20:45:26.280Z] [INFO] [#sid_101] [ContainerPool] pre-warming 2 nodejs:6 containers
+[2018-05-06T20:45:26.300Z] [INFO] [#sid_110] [MessageFeed] handler capacity = 4, pipeline fill at = 4, pipeline depth = 8
+[2018-05-06T20:45:26.698Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_1_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4373]
+[2018-05-06T20:45:26.711Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_2_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:4385]
+[2018-05-06T20:45:26.960Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:4624:1028]
+[2018-05-06T20:45:26.965Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:45:27.043Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:2222204]
+[2018-05-06T20:45:27.079Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:45:27.490Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:2222666]
+[2018-05-06T20:45:27.568Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5243:869]
+[2018-05-06T20:45:27.584Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:2222758:92]
+[2018-05-06T20:45:27.642Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:5317:932]
+[2018-05-06T20:45:27.672Z] [INFO] [#sid_101] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_3_prewarm_nodejs6 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/nodejs6action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:5342]
+[2018-05-06T20:45:27.677Z] [INFO] [#sid_121] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@71cda1d3
+[2018-05-06T20:45:27.683Z] [INFO] [#sid_121] [DockerContainer] sending initialization to ContainerId(58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationInit_start:2222861]
+[2018-05-06T20:45:27.688Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: prewarmed action: invokerHealthTestAction0 namespace: whisk.system activationId: 1dcb159d31db45ae8b159d31db45aef6 [marker:invoker_containerStart.prewarmed_count:2222864]
+[2018-05-06T20:45:28.584Z] [INFO] [#sid_101] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:6258:911]
+[2018-05-06T20:45:28.963Z] [INFO] [#sid_121] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:2224141:1262]
+[2018-05-06T20:45:28.967Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:2224145]
+[2018-05-06T20:45:29.009Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:2224186:35]
+[2018-05-06T20:45:29.030Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:2224208]
+[2018-05-06T20:45:29.114Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:2224292:83]
+[2018-05-06T20:45:29.135Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation 1dcb159d31db45ae8b159d31db45aef6
+[2018-05-06T20:45:29.136Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/1dcb159d31db45ae8b159d31db45aef6, rev: null' [marker:database_saveDocument_start:2224314]
+[2018-05-06T20:45:29.144Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6814]
+[2018-05-06T20:45:29.158Z] [INFO] [#sid_121] [InvokerReactive]  [marker:invoker_activation_start:2224336]
+[2018-05-06T20:45:29.159Z] [WARN] [#sid_121] [InvokerReactive] revision was not provided for whisk.system/invokerHealthTestAction0
+[2018-05-06T20:45:29.159Z] [INFO] [#sid_121] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: whisk.system/invokerHealthTestAction0' [marker:database_getDocument_start:2224337]
+[2018-05-06T20:45:29.176Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_getDocument_finish:2224352:14]
+[2018-05-06T20:45:29.180Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:45:29.180Z] [INFO] [#sid_121] [ContainerPool] containerStart containerState: warm action: invokerHealthTestAction0 namespace: whisk.system activationId: fbb986284cd64028b986284cd6102866 [marker:invoker_containerStart.warm_count:2224356]
+[2018-05-06T20:45:29.180Z] [INFO] [#sid_121] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@71cda1d3
+[2018-05-06T20:45:29.181Z] [INFO] [#sid_121] [DockerContainer] sending arguments to /whisk.system/invokerHealthTestAction0 at ContainerId(58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3) ContainerAddress(172.17.0.10,8080) [marker:invoker_activationRun_start:2224358]
+[2018-05-06T20:45:29.187Z] [INFO] [#sid_121] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:2224365:7]
+[2018-05-06T20:45:29.188Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_start:2224366]
+[2018-05-06T20:45:29.195Z] [INFO] [#sid_121] [ContainerProxy]  [marker:invoker_collectLogs_finish:2224373:6]
+[2018-05-06T20:45:29.230Z] [INFO] [#sid_121] [InvokerReactive] posted completion of activation fbb986284cd64028b986284cd6102866
+[2018-05-06T20:45:29.231Z] [INFO] [#sid_121] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: whisk.system/fbb986284cd64028b986284cd6102866, rev: null' [marker:database_saveDocument_start:2224409]
+[2018-05-06T20:45:29.242Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:6912]
+[2018-05-06T20:45:29.278Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:6950:136]
+[2018-05-06T20:45:29.304Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:2224482:167]
+[2018-05-06T20:45:29.307Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:45:29.309Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3 (timeout: 10 seconds) [marker:invoker_docker.pause_start:6981]
+[2018-05-06T20:45:29.310Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:6979:64]
+[2018-05-06T20:45:29.311Z] [INFO] [#sid_121] [CouchDbRestStore]  [marker:database_saveDocument_finish:2224487:78]
+[2018-05-06T20:45:29.380Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:7054:73]
+[2018-05-06T20:45:37.847Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:103]
+[2018-05-06T20:45:37.861Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:137]
+[2018-05-06T20:45:37.863Z] [INFO] [#tid_3] [InvokerReactive] ***** preparation of guest/add1
+[2018-05-06T20:45:37.870Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:146]
+[2018-05-06T20:45:37.870Z] [INFO] [#tid_3] [InvokerReactive] ***** preparation of guest/add3
+[2018-05-06T20:45:37.873Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:149]
+[2018-05-06T20:45:37.876Z] [INFO] [#tid_3] [InvokerReactive] ***** preparation of guest/add2
+[2018-05-06T20:45:38.172Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add3) [marker:database_cacheMiss_count:449]
+[2018-05-06T20:45:38.173Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add2) [marker:database_cacheMiss_count:449]
+[2018-05-06T20:45:38.174Z] [INFO] [#tid_3] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocument_start:450]
+[2018-05-06T20:45:38.175Z] [INFO] [#tid_3] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocument_start:450]
+[2018-05-06T20:45:38.180Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from datastore: CacheKey(guest/add1) [marker:database_cacheMiss_count:457]
+[2018-05-06T20:45:38.181Z] [INFO] [#tid_3] [CouchDbRestStore] [GET] 'whisk_local_whisks' finding document: 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocument_start:457]
+[2018-05-06T20:45:38.190Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from cache: CacheKey(guest/add1) [marker:database_cacheHit_count:464]
+[2018-05-06T20:45:38.214Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocument_finish:490:39]
+[2018-05-06T20:45:38.221Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocument_finish:497:40]
+[2018-05-06T20:45:38.240Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:516]
+[2018-05-06T20:45:38.241Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocument_finish:518:67]
+[2018-05-06T20:45:38.243Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocumentAttachment_start:520]
+[2018-05-06T20:45:38.245Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:521]
+[2018-05-06T20:45:38.250Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add1, rev: 2-e42c4f248b3a40faa09396b6d5759d2b' [marker:database_getDocumentAttachment_start:525]
+[2018-05-06T20:45:38.313Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:590:69]
+[2018-05-06T20:45:38.314Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:587:61]
+[2018-05-06T20:45:38.320Z] [INFO] [#tid_3] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:45:38.321Z] [INFO] [#tid_3] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:45:38.321Z] [INFO] [??] [ContainerPool] ******
+[2018-05-06T20:45:38.326Z] [INFO] [#tid_3] [ContainerPool] containerStart containerState: cold action: add3 namespace: guest preparation [marker:invoker_containerStart.cold_count:600]
+[2018-05-06T20:45:38.326Z] [INFO] [??] [ContainerPool] ******
+[2018-05-06T20:45:38.327Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-06T20:45:38.327Z] [INFO] [#tid_3] [ContainerPool] containerStart containerState: cold action: add1 namespace: guest preparation [marker:invoker_containerStart.cold_count:601]
+[2018-05-06T20:45:38.328Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:603:80]
+[2018-05-06T20:45:38.331Z] [INFO] [??] [ContainerProxy] prepare recieved in UNINITIALIZED
+[2018-05-06T20:45:38.331Z] [INFO] [#tid_3] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_4_guest_add3 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:606]
+[2018-05-06T20:45:38.353Z] [INFO] [#tid_3] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_6_guest_add1 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:629]
+[2018-05-06T20:45:38.364Z] [INFO] [#tid_3] [ContainerPool] containerStart containerState: cold action: add1 namespace: guest activationId: a4ba65b860ba4e28ba65b860ba8e28ab [marker:invoker_containerStart.cold_count:626]
+[2018-05-06T20:45:38.396Z] [INFO] [#tid_3] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_5_guest_add1 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:649]
+[2018-05-06T20:45:38.399Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:652:136]
+[2018-05-06T20:45:38.400Z] [INFO] [#tid_3] [InvokerReactive] preparation msg sent to actor.
+[2018-05-06T20:45:38.425Z] [INFO] [??] [ContainerPool] In Prepare busy and free equal max *****
+[2018-05-06T20:45:38.426Z] [INFO] [??] [ContainerPool] add handling here
+[2018-05-06T20:45:39.204Z] [INFO] [#tid_3] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1479:873]
+[2018-05-06T20:45:39.211Z] [INFO] [#tid_3] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@69934190
+[2018-05-06T20:45:39.212Z] [INFO] [#tid_3] [DockerContainer] sending initialization to ContainerId(830dfa0a3c70379a96fb44b98c30fc8a441411eae85b6e35fc87c9e8ca4f96f8) ContainerAddress(172.17.0.13,8080) [marker:invoker_activationInit_start:1489]
+[2018-05-06T20:45:39.295Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:45:39.301Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 830dfa0a3c70379a96fb44b98c30fc8a441411eae85b6e35fc87c9e8ca4f96f8 (timeout: 10 seconds) [marker:invoker_docker.pause_start:16971]
+[2018-05-06T20:45:39.349Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:17025:54]
+[2018-05-06T20:45:39.405Z] [INFO] [#tid_3] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1680:1051]
+[2018-05-06T20:45:39.408Z] [INFO] [#tid_3] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@32f654b9
+[2018-05-06T20:45:39.408Z] [INFO] [#tid_3] [DockerContainer] sending initialization to ContainerId(3cdebc2ed33ad75b1b6cfe32f1fbcfc326895102f40d7ffa050177fed1b76be6) ContainerAddress(172.17.0.14,8080) [marker:invoker_activationInit_start:1684]
+[2018-05-06T20:45:39.472Z] [INFO] [#tid_3] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:1749:1098]
+[2018-05-06T20:45:39.486Z] [INFO] [#tid_3] [ContainerProxy] *********initialization Only whisk.core.containerpool.docker.DockerContainer@282eeaf
+[2018-05-06T20:45:39.487Z] [INFO] [#tid_3] [DockerContainer] sending initialization to ContainerId(b7193615f29cb594c8725776a35d05ca6c030c25e9a776802ace181ab5fc7d5d) ContainerAddress(172.17.0.15,8080) [marker:invoker_activationInit_start:1763]
+[2018-05-06T20:45:39.554Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:45:39.555Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause b7193615f29cb594c8725776a35d05ca6c030c25e9a776802ace181ab5fc7d5d (timeout: 10 seconds) [marker:invoker_docker.pause_start:17230]
+[2018-05-06T20:45:39.603Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:17278:47]
+[2018-05-06T20:45:39.859Z] [INFO] [#tid_3] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:2136:450]
+[2018-05-06T20:45:39.862Z] [INFO] [#tid_3] [DockerContainer] sending arguments to /guest/add1 at ContainerId(3cdebc2ed33ad75b1b6cfe32f1fbcfc326895102f40d7ffa050177fed1b76be6) ContainerAddress(172.17.0.14,8080) [marker:invoker_activationRun_start:2136]
+[2018-05-06T20:45:39.971Z] [INFO] [#tid_3] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:2247:111]
+[2018-05-06T20:45:39.972Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_start:2249]
+[2018-05-06T20:45:39.991Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_finish:2268:19]
+[2018-05-06T20:45:40.001Z] [INFO] [#tid_3] [InvokerReactive] posted completion of activation a4ba65b860ba4e28ba65b860ba8e28ab
+[2018-05-06T20:45:40.002Z] [INFO] [#tid_3] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/a4ba65b860ba4e28ba65b860ba8e28ab, rev: null' [marker:database_saveDocument_start:2271]
+[2018-05-06T20:45:40.002Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:17667]
+[2018-05-06T20:45:40.008Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:2284]
+[2018-05-06T20:45:40.009Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from cache: CacheKey(guest/add2) [marker:database_cacheHit_count:2285]
+[2018-05-06T20:45:40.009Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add2, rev: 2-629e074b660e3c2e5428a7d2688d336c' [marker:database_getDocumentAttachment_start:2285]
+[2018-05-06T20:45:40.025Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:17696:28]
+[2018-05-06T20:45:40.025Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_saveDocument_finish:2301:29]
+[2018-05-06T20:45:40.033Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:2306:20]
+[2018-05-06T20:45:40.035Z] [INFO] [#tid_3] [ContainerPool] containerStart containerState: recreated action: add2 namespace: guest activationId: 7aab06d818d94004ab06d818d970048b [marker:invoker_containerStart.recreated_count:2311]
+[2018-05-06T20:45:40.036Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:17711]
+[2018-05-06T20:45:40.037Z] [INFO] [#tid_3] [DockerClientWithFileAccess] running /usr/bin/docker run -d --cpu-shares 256 --memory 256m --memory-swap 256m --network bridge -e __OW_API_HOST=https://172.17.0.1:443 --name wsk00_7_guest_add2 --cap-drop NET_RAW --cap-drop NET_ADMIN --ulimit nofile=1024:1024 --pids-limit 1024 --log-driver json-file whisk/java8action:latest (timeout: 1 minute) [marker:invoker_docker.run_start:2314]
+[2018-05-06T20:45:40.072Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:17748:37]
+[2018-05-06T20:45:40.074Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 58353cfe634adbe32b7ddb076ed8cca85e386087f531cc558048b32e57e5bfe3 (timeout: 1 minute) [marker:invoker_docker.rm_start:17749]
+[2018-05-06T20:45:40.075Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:45:40.075Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause 3cdebc2ed33ad75b1b6cfe32f1fbcfc326895102f40d7ffa050177fed1b76be6 (timeout: 10 seconds) [marker:invoker_docker.pause_start:17751]
+[2018-05-06T20:45:40.151Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:17826:75]
+[2018-05-06T20:45:40.512Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:18188:439]
+[2018-05-06T20:45:40.618Z] [INFO] [#tid_3] [DockerClientWithFileAccess]  [marker:invoker_docker.run_finish:2895:581]
+[2018-05-06T20:45:40.620Z] [INFO] [#tid_3] [ContainerProxy] *********initializing whisk.core.containerpool.docker.DockerContainer@6fa387c8
+[2018-05-06T20:45:40.621Z] [INFO] [#tid_3] [DockerContainer] sending initialization to ContainerId(ac6d4a436591739f2512060ba71788396c7595100b05fa628bc359d16d13059e) ContainerAddress(172.17.0.16,8080) [marker:invoker_activationInit_start:2897]
+[2018-05-06T20:45:40.980Z] [INFO] [#tid_3] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:3257:360]
+[2018-05-06T20:45:40.984Z] [INFO] [#tid_3] [DockerContainer] sending arguments to /guest/add2 at ContainerId(ac6d4a436591739f2512060ba71788396c7595100b05fa628bc359d16d13059e) ContainerAddress(172.17.0.16,8080) [marker:invoker_activationRun_start:3257]
+[2018-05-06T20:45:41.023Z] [INFO] [#tid_3] [DockerContainer] running result: ok [marker:invoker_activationRun_finish:3300:42]
+[2018-05-06T20:45:41.024Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_start:3301]
+[2018-05-06T20:45:41.029Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_finish:3305:4]
+[2018-05-06T20:45:41.030Z] [INFO] [#tid_3] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/7aab06d818d94004ab06d818d970048b, rev: null' [marker:database_saveDocument_start:3306]
+[2018-05-06T20:45:41.031Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:18702]
+[2018-05-06T20:45:41.032Z] [INFO] [#tid_3] [InvokerReactive] posted completion of activation 7aab06d818d94004ab06d818d970048b
+[2018-05-06T20:45:41.056Z] [INFO] [#tid_3] [InvokerReactive]  [marker:invoker_activation_start:3331]
+[2018-05-06T20:45:41.056Z] [INFO] [#tid_3] [WhiskAction] [GET] serving from cache: CacheKey(guest/add3) [marker:database_cacheHit_count:3331]
+[2018-05-06T20:45:41.057Z] [INFO] [#tid_3] [CouchDbRestStore] [ATT_GET] 'whisk_local_whisks' finding attachment 'jarfile' of document 'id: guest/add3, rev: 2-2edf7b9d01df7b9ae8bd1c0d34b4b729' [marker:database_getDocumentAttachment_start:3332]
+[2018-05-06T20:45:41.085Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_getDocumentAttachment_finish:3344:12]
+[2018-05-06T20:45:41.085Z] [INFO] [??] [ContainerPool] <**********> FOUND WARM :
+[2018-05-06T20:45:41.086Z] [INFO] [#tid_3] [ContainerPool] containerStart containerState: warm action: add3 namespace: guest activationId: 41be3be6944b4827be3be6944b882764 [marker:invoker_containerStart.warm_count:3345]
+[2018-05-06T20:45:41.086Z] [INFO] [#tid_3] [DockerClientWithFileAccess] running /usr/bin/docker unpause 830dfa0a3c70379a96fb44b98c30fc8a441411eae85b6e35fc87c9e8ca4f96f8 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:3346]
+[2018-05-06T20:45:41.095Z] [INFO] [??] [ContainerProxy] pausing...
+[2018-05-06T20:45:41.096Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker pause ac6d4a436591739f2512060ba71788396c7595100b05fa628bc359d16d13059e (timeout: 10 seconds) [marker:invoker_docker.pause_start:18770]
+[2018-05-06T20:45:41.097Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:18769:67]
+[2018-05-06T20:45:41.098Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_saveDocument_finish:3375:68]
+[2018-05-06T20:45:41.144Z] [INFO] [#tid_3] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:3411:65]
+[2018-05-06T20:45:41.144Z] [INFO] [#tid_3] [ContainerProxy] *********initialization is done for whisk.core.containerpool.docker.DockerContainer@69934190
+[2018-05-06T20:45:41.145Z] [INFO] [#tid_3] [DockerContainer] sending arguments to /guest/add3 at ContainerId(830dfa0a3c70379a96fb44b98c30fc8a441411eae85b6e35fc87c9e8ca4f96f8) ContainerAddress(172.17.0.13,8080) [marker:invoker_activationRun_start:3412]
+[2018-05-06T20:45:41.167Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.pause_finish:18842:71]
+[2018-05-06T20:45:41.416Z] [INFO] [#tid_3] [DockerContainer] initialization result: ok [marker:invoker_activationInit_finish:3692:2203]
+[2018-05-06T20:45:53.147Z] [INFO] [#tid_3] [DockerContainer] running result: ConnectionError(org.apache.http.conn.HttpHostConnectException: Connect to 172.17.0.13:8080 [/172.17.0.13] failed: Connection refused (Connection refused)) [marker:invoker_activationRun_finish:15423:12]
+[2018-05-06T20:45:53.148Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_start:15425]
+[2018-05-06T20:45:53.157Z] [INFO] [#tid_3] [ContainerProxy]  [marker:invoker_collectLogs_finish:15433:8]
+[2018-05-06T20:45:53.168Z] [INFO] [#tid_3] [InvokerReactive] posted completion of activation 41be3be6944b4827be3be6944b882764
+[2018-05-06T20:45:53.170Z] [INFO] [#tid_3] [CouchDbRestStore] [PUT] 'whisk_local_activations' saving document: 'id: guest/41be3be6944b4827be3be6944b882764, rev: null' [marker:database_saveDocument_start:15446]
+[2018-05-06T20:45:53.173Z] [INFO] [#sid_140] [CouchDbRestStore] 'whisk_local_activations' saving 1 documents [marker:database_saveDocumentBulk_start:30844]
+[2018-05-06T20:45:53.175Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 830dfa0a3c70379a96fb44b98c30fc8a441411eae85b6e35fc87c9e8ca4f96f8 (timeout: 1 minute) [marker:invoker_docker.rm_start:30850]
+[2018-05-06T20:45:53.228Z] [INFO] [#sid_140] [CouchDbRestStore]  [marker:database_saveDocumentBulk_finish:30895:49]
+[2018-05-06T20:45:53.228Z] [INFO] [#tid_3] [CouchDbRestStore]  [marker:database_saveDocument_finish:15500:54]
+[2018-05-06T20:45:53.568Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:31244:394]
+[2018-05-06T20:46:40.504Z] [INFO] [#tid_3] [DockerContainer] initialization result: Timeout() [marker:invoker_activationInit_finish:62780:61017]
+[2018-05-06T20:50:25.926Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:303601]
+[2018-05-06T20:50:25.978Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:303654:53]
+[2018-05-06T20:50:25.979Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:55:25.945Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:603621]
+[2018-05-06T20:55:25.981Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:603657:36]
+[2018-05-06T20:55:25.981Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries
+[2018-05-06T20:55:39.616Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause b7193615f29cb594c8725776a35d05ca6c030c25e9a776802ace181ab5fc7d5d (timeout: 10 seconds) [marker:invoker_docker.unpause_start:617291]
+[2018-05-06T20:55:39.649Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:617324:33]
+[2018-05-06T20:55:39.649Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f b7193615f29cb594c8725776a35d05ca6c030c25e9a776802ace181ab5fc7d5d (timeout: 1 minute) [marker:invoker_docker.rm_start:617325]
+[2018-05-06T20:55:39.985Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:617661:336]
+[2018-05-06T20:55:40.165Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause 3cdebc2ed33ad75b1b6cfe32f1fbcfc326895102f40d7ffa050177fed1b76be6 (timeout: 10 seconds) [marker:invoker_docker.unpause_start:617840]
+[2018-05-06T20:55:40.206Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:617881:41]
+[2018-05-06T20:55:40.206Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f 3cdebc2ed33ad75b1b6cfe32f1fbcfc326895102f40d7ffa050177fed1b76be6 (timeout: 1 minute) [marker:invoker_docker.rm_start:617882]
+[2018-05-06T20:55:40.553Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:618229:347]
+[2018-05-06T20:55:41.186Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker unpause ac6d4a436591739f2512060ba71788396c7595100b05fa628bc359d16d13059e (timeout: 10 seconds) [marker:invoker_docker.unpause_start:618862]
+[2018-05-06T20:55:41.222Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.unpause_finish:618894:32]
+[2018-05-06T20:55:41.222Z] [INFO] [#sid_102] [DockerClientWithFileAccess] running /usr/bin/docker rm -f ac6d4a436591739f2512060ba71788396c7595100b05fa628bc359d16d13059e (timeout: 1 minute) [marker:invoker_docker.rm_start:618895]
+[2018-05-06T20:55:41.557Z] [INFO] [#sid_102] [DockerClientWithFileAccess]  [marker:invoker_docker.rm_finish:619233:338]
+[2018-05-06T21:00:25.965Z] [INFO] [#sid_100] [CouchDbRestStore] [QUERY] 'whisk_local_subjects' searching 'namespaceThrottlings/blockedNamespaces [marker:database_queryView_start:903640]
+[2018-05-06T21:00:26.011Z] [INFO] [#sid_100] [CouchDbRestStore]  [marker:database_queryView_finish:903687:46]
+[2018-05-06T21:00:26.012Z] [INFO] [??] [InvokerReactive] updated blacklist to 0 entries

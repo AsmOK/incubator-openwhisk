@@ -47,6 +47,36 @@ trait Message {
   override def toString = serialize
 }
 
+/* *************Aya&Asmaa****************/
+case class PreparationMessage(override val transid: TransactionId,
+                             action: FullyQualifiedEntityName,
+                             revision: DocRevision,
+                             user: Identity
+                             // activationId: ActivationId,
+                             // rootControllerIndex: InstanceId,
+                             // blocking: Boolean,
+                             // content: Option[JsObject],
+                             /*cause: Option[ActivationId] = None*/)
+    extends Message {
+
+  override def serialize = PreparationMessage.serdes.write(this).compactPrint
+
+  override def toString = {
+    // val value = (content getOrElse JsObject()).compactPrint
+    s"$action?message=None"
+  }
+
+  // def causedBySequence: Boolean = cause.isDefined
+}
+
+object PreparationMessage extends DefaultJsonProtocol {
+
+  def parse(msg: String) = Try(serdes.read(msg.parseJson))
+
+  private implicit val fqnSerdes = FullyQualifiedEntityName.serdes
+  implicit val serdes = jsonFormat4(PreparationMessage.apply)
+}
+
 case class ActivationMessage(override val transid: TransactionId,
                              action: FullyQualifiedEntityName,
                              revision: DocRevision,
